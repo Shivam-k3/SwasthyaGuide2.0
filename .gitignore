@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Node / frontend build output
+node_modules/
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Local environment files. .env.example is committed deliberately.
+.env
+.env.*
+!.env.example
+
+# Local run logs and debug output
+*.log
+stage3_run.log
+
+# Test and coverage output
+coverage/
+test-results/
+playwright-report/
+
+# Editor and OS cache
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# NOTE: data/, models/, notebooks/, STAGE_3_AUDIT.md and requirements.txt are
+# intentionally tracked. The dataset is checksum-verified on load, the model
+# artifacts are the frozen Stage 2/3 results, and the notebooks are the
+# methodology record. Do not add them here.

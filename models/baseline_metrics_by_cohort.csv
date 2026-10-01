@@ -1,0 +1,13 @@
+model,cohort,n,n_positive,prevalence,roc_auc,pr_auc,recall,precision,f1,accuracy,tn,fp,fn,tp,reliable
+logistic_regression,Cleveland,61,28,0.459,0.9535,0.9362,0.9286,0.8125,0.8667,0.8689,27,6,2,26,True
+logistic_regression,Hungary,58,21,0.3621,0.8533,0.8275,0.7619,0.8,0.7805,0.8448,33,4,5,16,True
+logistic_regression,Switzerland,25,23,0.92,0.6522,0.9572,0.9565,0.9565,0.9565,0.92,1,1,1,22,False
+logistic_regression,VA Long Beach,40,30,0.75,0.6867,0.8539,0.9333,0.8,0.8615,0.775,3,7,2,28,False
+random_forest,Cleveland,61,28,0.459,0.9437,0.9025,0.9286,0.8667,0.8966,0.9016,29,4,2,26,True
+random_forest,Hungary,58,21,0.3621,0.861,0.8025,0.7143,0.7143,0.7143,0.7931,31,6,6,15,True
+random_forest,Switzerland,25,23,0.92,0.7609,0.9741,0.913,0.9545,0.9333,0.88,1,1,2,21,False
+random_forest,VA Long Beach,40,30,0.75,0.71,0.8293,0.8667,0.8667,0.8667,0.8,6,4,4,26,False
+xgboost,Cleveland,61,28,0.459,0.9437,0.9307,0.9643,0.9,0.931,0.9344,30,3,1,27,True
+xgboost,Hungary,58,21,0.3621,0.8468,0.7947,0.6667,0.7368,0.7,0.7931,32,5,7,14,True
+xgboost,Switzerland,25,23,0.92,0.5,0.9212,0.8696,0.9091,0.8889,0.8,0,2,3,20,False
+xgboost,VA Long Beach,40,30,0.75,0.69,0.8451,0.8667,0.7647,0.8125,0.7,2,8,4,26,False

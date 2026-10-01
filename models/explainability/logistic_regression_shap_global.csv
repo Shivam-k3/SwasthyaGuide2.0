@@ -1,0 +1,34 @@
+feature,mean_abs_shap,mean_shap,mean_shap_sd,abs_mean_shap,model,direction,direction_source,direction_consistent
+missingindicator_ca,0.488057329360207,-0.015782648764795692,0.5232141011569541,0.488057329360207,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+cp_asymptomatic,0.4782894193787664,0.0116522139642176,0.47933620405860444,0.4782894193787664,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+exang,0.44235187904629947,0.05849633921751263,0.47434772565935707,0.44235187904629947,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+ca,0.32442288892161136,0.06970223205898886,0.6167029662308394,0.32442288892161136,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+slope_flat,0.29753646435093123,0.018331128323615192,0.3136665505630305,0.29753646435093123,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+cp_atypical angina,0.2503606816052743,0.0165643856015735,0.30687078375951643,0.2503606816052743,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+sex_Female,0.24248666112450165,0.03829869181913086,0.2698511228161389,0.24248666112450165,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+sex_Male,0.23577743678480245,0.03723902728278162,0.26238476688176704,0.23577743678480245,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+slope_Missing,0.23191599138435534,0.021660078440614426,0.23801582946989752,0.23191599138435534,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+thalch,0.2255503310682899,0.007212155653006917,0.27969135494721103,0.2255503310682899,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+missingindicator_fbs,0.2192603424562754,-0.02669095537913118,0.33508228336317136,0.2192603424562754,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+oldpeak,0.20808030242781178,0.03200522927993075,0.26137122714510397,0.20808030242781178,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+missingindicator_chol,0.1890175980824745,0.018172053016148576,0.23995609789473044,0.1890175980824745,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+thal_reversable defect,0.1841809254473319,0.014123117182410995,0.2391586734790472,0.1841809254473319,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+thal_Missing,0.16741638881073073,0.019444754353731844,0.16915936412704008,0.16741638881073073,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+chol,0.12951056884109746,-0.01191631848869155,0.18797483510960505,0.12951056884109746,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+missingindicator_trestbps,0.1278934323451942,0.049330323904573974,0.346089995554512,0.1278934323451942,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+thal_normal,0.1167669802127869,-0.009383673101572891,0.14844277739897768,0.1167669802127869,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+trestbps,0.11415364440744591,-0.017011037548292186,0.14309724204528065,0.11415364440744591,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+restecg_normal,0.10459348736416052,0.010422989470820352,0.10917218560597156,0.10459348736416052,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+age,0.09926348578517671,0.0024924954181245454,0.12302114490990207,0.09926348578517671,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+fbs,0.08223623409095937,0.018104245564800205,0.13378869781776465,0.08223623409095937,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+cp_non-anginal,0.07191752280127241,-0.0021530113054943965,0.08830434345048686,0.07191752280127241,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+restecg_st-t abnormality,0.03261030815285381,0.0022695229267286807,0.03929227679934859,0.03261030815285381,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+restecg_lv hypertrophy,0.018831295820704554,0.004575620799473651,0.02717690127744042,0.018831295820704554,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+slope_downsloping,0.017413052835905798,0.00028002370197393293,0.03414235726477173,0.017413052835905798,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+slope_upsloping,0.010023233477643965,-0.0004959391633994535,0.012297522649736999,0.010023233477643965,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+missingindicator_thalch,0.007437026563956929,-0.0025696661772057787,0.020469667183136527,0.007437026563956929,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+missingindicator_exang,0.007437026563956929,-0.0025696661772057787,0.020469667183136527,0.007437026563956929,logistic_regression,toward lower risk score,linear coefficient sign (fixed per feature),True
+thal_fixed defect,0.007345900520535755,0.0006626088074980475,0.018679733738717102,0.007345900520535755,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+missingindicator_oldpeak,0.0019635000562124006,0.0007089385836230002,0.004675192247921289,0.0019635000562124006,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+cp_typical angina,0.0015795279061791266,-1.8260438221725104e-05,0.0036259074670572915,0.0015795279061791266,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True
+restecg_Missing,0.0006390948296510717,0.0006390948296510717,0.012251621571083445,0.0006390948296510717,logistic_regression,toward higher risk score,linear coefficient sign (fixed per feature),True

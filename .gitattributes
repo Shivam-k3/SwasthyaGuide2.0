@@ -1,0 +1,32 @@
+# SWASTHYAGUIDE 2.0 - line-ending policy
+#
+# The dataset, the model artifacts and the notebooks are frozen results,
+# checksum-verified on load by src/preprocessing.py and
+# tests/test_stage3_integrity.py. Git must store those bytes exactly as they
+# were produced. Marking them -text disables CRLF normalisation, so a checkout
+# on any operating system reproduces the verified files rather than silently
+# rewriting them.
+#
+# Order matters. Later lines override earlier ones, so the -text rules are listed
+# after the general defaults rather than before.
+
+# Source files are plain text and normalise to LF in the repository, so the
+# working tree stays clean on Windows and Linux alike.
+* text=auto
+
+*.py text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.svg text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+
+# Frozen results: store verbatim, never rewrite line endings.
+data/** -text
+models/** -text
+notebooks/** -text
+STAGE_3_AUDIT.md -text

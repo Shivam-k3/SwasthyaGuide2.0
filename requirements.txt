@@ -1,0 +1,32 @@
+# SWASTHYAGUIDE 2.0 — Heart Disease Risk module
+# Stages 1-4 (EDA, preprocessing, baseline models, validation, API serving).
+# Only packages actually imported by code in this repository.
+# Versions are the exact ones this stage was developed and verified against.
+
+# --- Stage 1: EDA notebooks ---
+pandas==2.3.2
+numpy==2.3.1
+matplotlib==3.10.9
+seaborn==0.13.2
+
+# --- Stage 2: preprocessing + baseline models ---
+scikit-learn==1.7.1     # Pipeline, ColumnTransformer, LogisticRegression, RandomForest
+xgboost==3.3.0           # XGBClassifier baseline
+joblib==1.5.1            # persisting fitted pipelines
+scipy==1.16.1            # spearmanr, used in notebook 02 for the `ca` decision
+
+# --- Stage 3: validation, calibration, explainability ---
+shap==0.52.0             # SHAP global + individual explanations for all 3 models
+
+# --- Stage 4: FastAPI serving layer ---
+# Pinned exactly like the rest, because src/verify_stage3.py asserts that no
+# entry in this file is unpinned.
+fastapi==0.116.1         # ASGI framework, routing, OpenAPI, TestClient
+pydantic==2.11.7         # request/response validation and the strict category enums
+uvicorn==0.35.0          # development server
+httpx==0.28.1            # required by fastapi.testclient for the test suite
+pytest==8.4.2            # test runner
+
+# Optional, only if you want to execute the notebooks interactively
+# rather than from an existing Jupyter install:
+# jupyterlab>=4.0

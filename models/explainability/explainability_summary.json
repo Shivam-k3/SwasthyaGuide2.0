@@ -1,0 +1,2643 @@
+{
+  "attribution_caveat": "Feature attribution describes how a fitted model used its inputs to produce a risk score. It reflects model association and contribution within this dataset. It is NOT evidence of medical causation, NOT a diagnostic finding, and NOT a clinically validated interpretation. Correlated features can share or dilute attribution between themselves.",
+  "baseline_for_shap": "the explainer's expected output for each model (E[f(x)]), not the mean SHAP value; base + sum(contributions) reproduces the model's own output, verified numerically for every explained case and for the whole sample",
+  "output_scale": {
+    "logistic_regression": "log-odds units (verified against decision_function (log-odds))",
+    "random_forest": "probability units (verified against probability)",
+    "xgboost": "log-odds units (verified against raw margin (log-odds))",
+    "note": "magnitudes are NOT comparable across model families: compare signs and within-model rankings only"
+  },
+  "additivity_check": {
+    "logistic_regression": {
+      "output_compared_against": "decision_function (log-odds)",
+      "declared_output_scale": "log-odds",
+      "base_value_mean_expected_output": 0.00395,
+      "base_value_is_per_row": false,
+      "max_abs_gap": 1.7763568394002505e-15,
+      "verified": true
+    },
+    "random_forest": {
+      "output_compared_against": "probability",
+      "declared_output_scale": "probability",
+      "base_value_mean_expected_output": 0.55244,
+      "base_value_is_per_row": false,
+      "max_abs_gap": 1.3877787807814457e-15,
+      "verified": true
+    },
+    "xgboost": {
+      "output_compared_against": "raw margin (log-odds)",
+      "declared_output_scale": "log-odds",
+      "base_value_mean_expected_output": 0.21255,
+      "base_value_is_per_row": false,
+      "max_abs_gap": 4.741130396723747e-06,
+      "verified": true
+    }
+  },
+  "explanation_sample_rows": 736,
+  "raw_features": [
+    "age",
+    "trestbps",
+    "chol",
+    "thalch",
+    "oldpeak",
+    "ca",
+    "sex",
+    "cp",
+    "restecg",
+    "slope",
+    "thal",
+    "fbs",
+    "exang"
+  ],
+  "global_shap": {
+    "logistic_regression": [
+      {
+        "feature": "missingindicator_ca",
+        "mean_abs_shap": 0.488057329360207,
+        "mean_shap": -0.015782648764795692,
+        "mean_shap_sd": 0.5232141011569541,
+        "abs_mean_shap": 0.488057329360207,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "cp_asymptomatic",
+        "mean_abs_shap": 0.4782894193787664,
+        "mean_shap": 0.0116522139642176,
+        "mean_shap_sd": 0.47933620405860444,
+        "abs_mean_shap": 0.4782894193787664,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "exang",
+        "mean_abs_shap": 0.44235187904629947,
+        "mean_shap": 0.05849633921751263,
+        "mean_shap_sd": 0.47434772565935707,
+        "abs_mean_shap": 0.44235187904629947,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "ca",
+        "mean_abs_shap": 0.32442288892161136,
+        "mean_shap": 0.06970223205898886,
+        "mean_shap_sd": 0.6167029662308394,
+        "abs_mean_shap": 0.32442288892161136,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "slope_flat",
+        "mean_abs_shap": 0.29753646435093123,
+        "mean_shap": 0.018331128323615192,
+        "mean_shap_sd": 0.3136665505630305,
+        "abs_mean_shap": 0.29753646435093123,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "cp_atypical angina",
+        "mean_abs_shap": 0.2503606816052743,
+        "mean_shap": 0.0165643856015735,
+        "mean_shap_sd": 0.30687078375951643,
+        "abs_mean_shap": 0.2503606816052743,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "sex_Female",
+        "mean_abs_shap": 0.24248666112450165,
+        "mean_shap": 0.03829869181913086,
+        "mean_shap_sd": 0.2698511228161389,
+        "abs_mean_shap": 0.24248666112450165,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "sex_Male",
+        "mean_abs_shap": 0.23577743678480245,
+        "mean_shap": 0.03723902728278162,
+        "mean_shap_sd": 0.26238476688176704,
+        "abs_mean_shap": 0.23577743678480245,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "slope_Missing",
+        "mean_abs_shap": 0.23191599138435534,
+        "mean_shap": 0.021660078440614426,
+        "mean_shap_sd": 0.23801582946989752,
+        "abs_mean_shap": 0.23191599138435534,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "thalch",
+        "mean_abs_shap": 0.2255503310682899,
+        "mean_shap": 0.007212155653006917,
+        "mean_shap_sd": 0.27969135494721103,
+        "abs_mean_shap": 0.2255503310682899,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "missingindicator_fbs",
+        "mean_abs_shap": 0.2192603424562754,
+        "mean_shap": -0.02669095537913118,
+        "mean_shap_sd": 0.33508228336317136,
+        "abs_mean_shap": 0.2192603424562754,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "oldpeak",
+        "mean_abs_shap": 0.20808030242781178,
+        "mean_shap": 0.03200522927993075,
+        "mean_shap_sd": 0.26137122714510397,
+        "abs_mean_shap": 0.20808030242781178,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "missingindicator_chol",
+        "mean_abs_shap": 0.1890175980824745,
+        "mean_shap": 0.018172053016148576,
+        "mean_shap_sd": 0.23995609789473044,
+        "abs_mean_shap": 0.1890175980824745,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "thal_reversable defect",
+        "mean_abs_shap": 0.1841809254473319,
+        "mean_shap": 0.014123117182410995,
+        "mean_shap_sd": 0.2391586734790472,
+        "abs_mean_shap": 0.1841809254473319,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "thal_Missing",
+        "mean_abs_shap": 0.16741638881073073,
+        "mean_shap": 0.019444754353731844,
+        "mean_shap_sd": 0.16915936412704008,
+        "abs_mean_shap": 0.16741638881073073,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "chol",
+        "mean_abs_shap": 0.12951056884109746,
+        "mean_shap": -0.01191631848869155,
+        "mean_shap_sd": 0.18797483510960505,
+        "abs_mean_shap": 0.12951056884109746,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "missingindicator_trestbps",
+        "mean_abs_shap": 0.1278934323451942,
+        "mean_shap": 0.049330323904573974,
+        "mean_shap_sd": 0.346089995554512,
+        "abs_mean_shap": 0.1278934323451942,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "thal_normal",
+        "mean_abs_shap": 0.1167669802127869,
+        "mean_shap": -0.009383673101572891,
+        "mean_shap_sd": 0.14844277739897768,
+        "abs_mean_shap": 0.1167669802127869,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "trestbps",
+        "mean_abs_shap": 0.11415364440744591,
+        "mean_shap": -0.017011037548292186,
+        "mean_shap_sd": 0.14309724204528065,
+        "abs_mean_shap": 0.11415364440744591,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "restecg_normal",
+        "mean_abs_shap": 0.10459348736416052,
+        "mean_shap": 0.010422989470820352,
+        "mean_shap_sd": 0.10917218560597156,
+        "abs_mean_shap": 0.10459348736416052,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "age",
+        "mean_abs_shap": 0.09926348578517671,
+        "mean_shap": 0.0024924954181245454,
+        "mean_shap_sd": 0.12302114490990207,
+        "abs_mean_shap": 0.09926348578517671,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "fbs",
+        "mean_abs_shap": 0.08223623409095937,
+        "mean_shap": 0.018104245564800205,
+        "mean_shap_sd": 0.13378869781776465,
+        "abs_mean_shap": 0.08223623409095937,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "cp_non-anginal",
+        "mean_abs_shap": 0.07191752280127241,
+        "mean_shap": -0.0021530113054943965,
+        "mean_shap_sd": 0.08830434345048686,
+        "abs_mean_shap": 0.07191752280127241,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "restecg_st-t abnormality",
+        "mean_abs_shap": 0.03261030815285381,
+        "mean_shap": 0.0022695229267286807,
+        "mean_shap_sd": 0.03929227679934859,
+        "abs_mean_shap": 0.03261030815285381,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "restecg_lv hypertrophy",
+        "mean_abs_shap": 0.018831295820704554,
+        "mean_shap": 0.004575620799473651,
+        "mean_shap_sd": 0.02717690127744042,
+        "abs_mean_shap": 0.018831295820704554,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "slope_downsloping",
+        "mean_abs_shap": 0.017413052835905798,
+        "mean_shap": 0.00028002370197393293,
+        "mean_shap_sd": 0.03414235726477173,
+        "abs_mean_shap": 0.017413052835905798,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "slope_upsloping",
+        "mean_abs_shap": 0.010023233477643965,
+        "mean_shap": -0.0004959391633994535,
+        "mean_shap_sd": 0.012297522649736999,
+        "abs_mean_shap": 0.010023233477643965,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "missingindicator_thalch",
+        "mean_abs_shap": 0.007437026563956929,
+        "mean_shap": -0.0025696661772057787,
+        "mean_shap_sd": 0.020469667183136527,
+        "abs_mean_shap": 0.007437026563956929,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "missingindicator_exang",
+        "mean_abs_shap": 0.007437026563956929,
+        "mean_shap": -0.0025696661772057787,
+        "mean_shap_sd": 0.020469667183136527,
+        "abs_mean_shap": 0.007437026563956929,
+        "model": "logistic_regression",
+        "direction": "toward lower risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "thal_fixed defect",
+        "mean_abs_shap": 0.007345900520535755,
+        "mean_shap": 0.0006626088074980475,
+        "mean_shap_sd": 0.018679733738717102,
+        "abs_mean_shap": 0.007345900520535755,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "missingindicator_oldpeak",
+        "mean_abs_shap": 0.0019635000562124006,
+        "mean_shap": 0.0007089385836230002,
+        "mean_shap_sd": 0.004675192247921289,
+        "abs_mean_shap": 0.0019635000562124006,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "cp_typical angina",
+        "mean_abs_shap": 0.0015795279061791266,
+        "mean_shap": -1.8260438221725104e-05,
+        "mean_shap_sd": 0.0036259074670572915,
+        "abs_mean_shap": 0.0015795279061791266,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      },
+      {
+        "feature": "restecg_Missing",
+        "mean_abs_shap": 0.0006390948296510717,
+        "mean_shap": 0.0006390948296510717,
+        "mean_shap_sd": 0.012251621571083445,
+        "abs_mean_shap": 0.0006390948296510717,
+        "model": "logistic_regression",
+        "direction": "toward higher risk score",
+        "direction_source": "linear coefficient sign (fixed per feature)",
+        "direction_consistent": true
+      }
+    ],
+    "random_forest": [
+      {
+        "feature": "cp_asymptomatic",
+        "mean_abs_shap": 0.08694347955790263,
+        "mean_shap": -0.0011213922966877355,
+        "mean_shap_sd": 0.08843182370249657,
+        "abs_mean_shap": 0.08694347955790263,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "exang",
+        "mean_abs_shap": 0.06298913347096417,
+        "mean_shap": -0.0008026809383332502,
+        "mean_shap_sd": 0.06654213103682476,
+        "abs_mean_shap": 0.06298913347096417,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "oldpeak",
+        "mean_abs_shap": 0.0505113567422071,
+        "mean_shap": -0.0013876399409713989,
+        "mean_shap_sd": 0.055393619293881466,
+        "abs_mean_shap": 0.0505113567422071,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "cp_atypical angina",
+        "mean_abs_shap": 0.043642839317474424,
+        "mean_shap": 0.0035306574542557896,
+        "mean_shap_sd": 0.05447926038678277,
+        "abs_mean_shap": 0.043642839317474424,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thalch",
+        "mean_abs_shap": 0.036697417960167525,
+        "mean_shap": -0.0007148397344139613,
+        "mean_shap_sd": 0.04412627964357599,
+        "abs_mean_shap": 0.036697417960167525,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "age",
+        "mean_abs_shap": 0.03255770706021088,
+        "mean_shap": 0.001213958058399915,
+        "mean_shap_sd": 0.036929734461914214,
+        "abs_mean_shap": 0.03255770706021088,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "slope_flat",
+        "mean_abs_shap": 0.032305762539160225,
+        "mean_shap": -9.672741469589864e-05,
+        "mean_shap_sd": 0.034483455681217086,
+        "abs_mean_shap": 0.032305762539160225,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "sex_Female",
+        "mean_abs_shap": 0.03045049490382587,
+        "mean_shap": 0.0003827570113675436,
+        "mean_shap_sd": 0.03794140466355571,
+        "abs_mean_shap": 0.03045049490382587,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "sex_Male",
+        "mean_abs_shap": 0.027959843204824784,
+        "mean_shap": 0.00047138399472204526,
+        "mean_shap_sd": 0.03475066025536744,
+        "abs_mean_shap": 0.027959843204824784,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thal_normal",
+        "mean_abs_shap": 0.024364314142409915,
+        "mean_shap": 2.9457013164666856e-06,
+        "mean_shap_sd": 0.031639830857949476,
+        "abs_mean_shap": 0.024364314142409915,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_chol",
+        "mean_abs_shap": 0.0216472346441999,
+        "mean_shap": -0.0009402970920473235,
+        "mean_shap_sd": 0.02693022226535597,
+        "abs_mean_shap": 0.0216472346441999,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "slope_Missing",
+        "mean_abs_shap": 0.01871119547320152,
+        "mean_shap": 4.7067353385575887e-08,
+        "mean_shap_sd": 0.02074033227523248,
+        "abs_mean_shap": 0.01871119547320152,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "chol",
+        "mean_abs_shap": 0.016487078693697282,
+        "mean_shap": 0.0007942252406587262,
+        "mean_shap_sd": 0.019633265892132684,
+        "abs_mean_shap": 0.016487078693697282,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thal_reversable defect",
+        "mean_abs_shap": 0.01623077811607033,
+        "mean_shap": -0.00042540545139016105,
+        "mean_shap_sd": 0.020872975617752074,
+        "abs_mean_shap": 0.01623077811607033,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "ca",
+        "mean_abs_shap": 0.01155020886422751,
+        "mean_shap": -0.0013530690024188589,
+        "mean_shap_sd": 0.016632492606572114,
+        "abs_mean_shap": 0.01155020886422751,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "cp_non-anginal",
+        "mean_abs_shap": 0.009451742279209882,
+        "mean_shap": 0.0006246386682215898,
+        "mean_shap_sd": 0.011870348933973858,
+        "abs_mean_shap": 0.009451742279209882,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_ca",
+        "mean_abs_shap": 0.00892700793600269,
+        "mean_shap": 0.0002805636658009169,
+        "mean_shap_sd": 0.010296492182120497,
+        "abs_mean_shap": 0.00892700793600269,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "trestbps",
+        "mean_abs_shap": 0.008034615819978289,
+        "mean_shap": -0.0003534858287217213,
+        "mean_shap_sd": 0.011064379402729682,
+        "abs_mean_shap": 0.008034615819978289,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_fbs",
+        "mean_abs_shap": 0.007115808070831768,
+        "mean_shap": -0.0006507960316040325,
+        "mean_shap_sd": 0.011784093161530758,
+        "abs_mean_shap": 0.007115808070831768,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "slope_upsloping",
+        "mean_abs_shap": 0.005520288912363394,
+        "mean_shap": 0.0005718539802814542,
+        "mean_shap_sd": 0.006853705230264559,
+        "abs_mean_shap": 0.005520288912363394,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "restecg_normal",
+        "mean_abs_shap": 0.004397672190709622,
+        "mean_shap": -1.9125643630731042e-05,
+        "mean_shap_sd": 0.005660320358033065,
+        "abs_mean_shap": 0.004397672190709622,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "fbs",
+        "mean_abs_shap": 0.0043630181338815835,
+        "mean_shap": -0.00019471120577751455,
+        "mean_shap_sd": 0.0068232567127326565,
+        "abs_mean_shap": 0.0043630181338815835,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thal_Missing",
+        "mean_abs_shap": 0.003786510736793598,
+        "mean_shap": 0.00037593694843533575,
+        "mean_shap_sd": 0.005119312523347223,
+        "abs_mean_shap": 0.003786510736793598,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "restecg_st-t abnormality",
+        "mean_abs_shap": 0.0025670176327990753,
+        "mean_shap": 1.3004860979527064e-05,
+        "mean_shap_sd": 0.004240346829661875,
+        "abs_mean_shap": 0.0025670176327990753,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_trestbps",
+        "mean_abs_shap": 0.002321809328852351,
+        "mean_shap": -0.0004843308195763605,
+        "mean_shap_sd": 0.004180291200321338,
+        "abs_mean_shap": 0.002321809328852351,
+        "model": "random_forest",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward no disease"
+      },
+      {
+        "feature": "missingindicator_oldpeak",
+        "mean_abs_shap": 0.002010695137803803,
+        "mean_shap": -0.00026011821868369213,
+        "mean_shap_sd": 0.0035348428181207836,
+        "abs_mean_shap": 0.002010695137803803,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_thalch",
+        "mean_abs_shap": 0.0017130099799853081,
+        "mean_shap": -0.00026545535686668816,
+        "mean_shap_sd": 0.003317617453626674,
+        "abs_mean_shap": 0.0017130099799853081,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "cp_typical angina",
+        "mean_abs_shap": 0.0016669406816158302,
+        "mean_shap": 2.1026717507287486e-05,
+        "mean_shap_sd": 0.003789084068632626,
+        "abs_mean_shap": 0.0016669406816158302,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "restecg_lv hypertrophy",
+        "mean_abs_shap": 0.0015164411331104336,
+        "mean_shap": 0.00014920862044659383,
+        "mean_shap_sd": 0.0025087162308920575,
+        "abs_mean_shap": 0.0015164411331104336,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thal_fixed defect",
+        "mean_abs_shap": 0.0011591655143683914,
+        "mean_shap": -0.00017114901768887838,
+        "mean_shap_sd": 0.002953378037584846,
+        "abs_mean_shap": 0.0011591655143683914,
+        "model": "random_forest",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_exang",
+        "mean_abs_shap": 0.0011082886942965346,
+        "mean_shap": -0.00024574753871478355,
+        "mean_shap_sd": 0.002085226134410583,
+        "abs_mean_shap": 0.0011082886942965346,
+        "model": "random_forest",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward no disease"
+      },
+      {
+        "feature": "slope_downsloping",
+        "mean_abs_shap": 0.0006367632457603194,
+        "mean_shap": -0.00014611938658970591,
+        "mean_shap_sd": 0.0011103473061608552,
+        "abs_mean_shap": 0.0006367632457603194,
+        "model": "random_forest",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward no disease"
+      },
+      {
+        "feature": "restecg_Missing",
+        "mean_abs_shap": 3.183360656770676e-05,
+        "mean_shap": -1.611237189957805e-05,
+        "mean_shap_sd": 0.00015458964996296066,
+        "abs_mean_shap": 3.183360656770676e-05,
+        "model": "random_forest",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward no disease"
+      }
+    ],
+    "xgboost": [
+      {
+        "feature": "cp_asymptomatic",
+        "mean_abs_shap": 0.6253699465128391,
+        "mean_shap": 0.011947801498615223,
+        "mean_shap_sd": 0.630508707905287,
+        "abs_mean_shap": 0.6253699465128391,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "exang",
+        "mean_abs_shap": 0.3674259544552668,
+        "mean_shap": 0.042687086469453316,
+        "mean_shap_sd": 0.39714283530484623,
+        "abs_mean_shap": 0.3674259544552668,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "oldpeak",
+        "mean_abs_shap": 0.3375857648801605,
+        "mean_shap": 0.03273486616165863,
+        "mean_shap_sd": 0.40932475873212637,
+        "abs_mean_shap": 0.3375857648801605,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "sex_Female",
+        "mean_abs_shap": 0.2987634413673178,
+        "mean_shap": -0.005716751653539098,
+        "mean_shap_sd": 0.3719385884992158,
+        "abs_mean_shap": 0.2987634413673178,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "slope_flat",
+        "mean_abs_shap": 0.26449407888171467,
+        "mean_shap": 0.02114368400172047,
+        "mean_shap_sd": 0.2824363581907216,
+        "abs_mean_shap": 0.26449407888171467,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thalch",
+        "mean_abs_shap": 0.22928397473720985,
+        "mean_shap": -0.0024222140007465064,
+        "mean_shap_sd": 0.31043320041481137,
+        "abs_mean_shap": 0.22928397473720985,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "cp_atypical angina",
+        "mean_abs_shap": 0.21977956642133548,
+        "mean_shap": -0.02071580622324963,
+        "mean_shap_sd": 0.30400156747022605,
+        "abs_mean_shap": 0.21977956642133548,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "ca",
+        "mean_abs_shap": 0.2121866843815002,
+        "mean_shap": 0.03148413081552186,
+        "mean_shap_sd": 0.35210164796554233,
+        "abs_mean_shap": 0.2121866843815002,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "age",
+        "mean_abs_shap": 0.2038414913435902,
+        "mean_shap": 0.006632474680689325,
+        "mean_shap_sd": 0.23723758296076286,
+        "abs_mean_shap": 0.2038414913435902,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_chol",
+        "mean_abs_shap": 0.18647876681517,
+        "mean_shap": 0.004080469679573308,
+        "mean_shap_sd": 0.23063038096143998,
+        "abs_mean_shap": 0.18647876681517,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "chol",
+        "mean_abs_shap": 0.16464035821121323,
+        "mean_shap": 0.0026143998419802697,
+        "mean_shap_sd": 0.20731891429221583,
+        "abs_mean_shap": 0.16464035821121323,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thal_reversable defect",
+        "mean_abs_shap": 0.16122017397909708,
+        "mean_shap": 0.012789211823078602,
+        "mean_shap_sd": 0.2135820862706194,
+        "abs_mean_shap": 0.16122017397909708,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_ca",
+        "mean_abs_shap": 0.1544334192395858,
+        "mean_shap": -0.01711399585980436,
+        "mean_shap_sd": 0.1757203482460688,
+        "abs_mean_shap": 0.1544334192395858,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thal_normal",
+        "mean_abs_shap": 0.14942263361856178,
+        "mean_shap": 0.000701775850282739,
+        "mean_shap_sd": 0.18874880674005404,
+        "abs_mean_shap": 0.14942263361856178,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_fbs",
+        "mean_abs_shap": 0.10100607507173782,
+        "mean_shap": 0.009557040914407244,
+        "mean_shap_sd": 0.18446878794210647,
+        "abs_mean_shap": 0.10100607507173782,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "trestbps",
+        "mean_abs_shap": 0.09768938335622332,
+        "mean_shap": 0.0029144139709545848,
+        "mean_shap_sd": 0.1406525955512413,
+        "abs_mean_shap": 0.09768938335622332,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_trestbps",
+        "mean_abs_shap": 0.06666487916473947,
+        "mean_shap": -0.010778643590722071,
+        "mean_shap_sd": 0.11626189544258164,
+        "abs_mean_shap": 0.06666487916473947,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "sex_Male",
+        "mean_abs_shap": 0.056033349064502705,
+        "mean_shap": 0.00011384919913404661,
+        "mean_shap_sd": 0.06934695902406868,
+        "abs_mean_shap": 0.056033349064502705,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "restecg_normal",
+        "mean_abs_shap": 0.0326575592954886,
+        "mean_shap": -0.003357836614747572,
+        "mean_shap_sd": 0.046626530376974805,
+        "abs_mean_shap": 0.0326575592954886,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "slope_Missing",
+        "mean_abs_shap": 0.025874794554471482,
+        "mean_shap": 0.0008361853846429807,
+        "mean_shap_sd": 0.029713505478295488,
+        "abs_mean_shap": 0.025874794554471482,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "fbs",
+        "mean_abs_shap": 0.019722237342806613,
+        "mean_shap": -0.001272458724839532,
+        "mean_shap_sd": 0.026746672871584977,
+        "abs_mean_shap": 0.019722237342806613,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "thal_Missing",
+        "mean_abs_shap": 0.016949161168430812,
+        "mean_shap": -0.0039201805914711695,
+        "mean_shap_sd": 0.02419697679173695,
+        "abs_mean_shap": 0.016949161168430812,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward no disease"
+      },
+      {
+        "feature": "restecg_st-t abnormality",
+        "mean_abs_shap": 0.013215163432861395,
+        "mean_shap": -0.001174292146258623,
+        "mean_shap_sd": 0.017514645530941723,
+        "abs_mean_shap": 0.013215163432861395,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "restecg_lv hypertrophy",
+        "mean_abs_shap": 0.007122203834866093,
+        "mean_shap": -0.002217873219152629,
+        "mean_shap_sd": 0.011342863978622558,
+        "abs_mean_shap": 0.007122203834866093,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward no disease"
+      },
+      {
+        "feature": "cp_non-anginal",
+        "mean_abs_shap": 0.0025436097193565015,
+        "mean_shap": 0.0002541550376285475,
+        "mean_shap_sd": 0.0029375305041291397,
+        "abs_mean_shap": 0.0025436097193565015,
+        "model": "xgboost",
+        "direction_consistent": false,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "effect varies by patient (signed contributions cancel)"
+      },
+      {
+        "feature": "missingindicator_thalch",
+        "mean_abs_shap": 0.002176683749775807,
+        "mean_shap": -0.000540128179557581,
+        "mean_shap_sd": 0.0036280305519150223,
+        "abs_mean_shap": 0.002176683749775807,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward no disease"
+      },
+      {
+        "feature": "missingindicator_oldpeak",
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "mean_shap_sd": 0.0,
+        "abs_mean_shap": 0.0,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward disease"
+      },
+      {
+        "feature": "missingindicator_exang",
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "mean_shap_sd": 0.0,
+        "abs_mean_shap": 0.0,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward disease"
+      },
+      {
+        "feature": "cp_typical angina",
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "mean_shap_sd": 0.0,
+        "abs_mean_shap": 0.0,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward disease"
+      },
+      {
+        "feature": "restecg_Missing",
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "mean_shap_sd": 0.0,
+        "abs_mean_shap": 0.0,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward disease"
+      },
+      {
+        "feature": "slope_downsloping",
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "mean_shap_sd": 0.0,
+        "abs_mean_shap": 0.0,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward disease"
+      },
+      {
+        "feature": "slope_upsloping",
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "mean_shap_sd": 0.0,
+        "abs_mean_shap": 0.0,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward disease"
+      },
+      {
+        "feature": "thal_fixed defect",
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "mean_shap_sd": 0.0,
+        "abs_mean_shap": 0.0,
+        "model": "xgboost",
+        "direction_consistent": true,
+        "direction_source": "signed mean SHAP across patients",
+        "direction": "on average pushes score toward disease"
+      }
+    ]
+  },
+  "logistic_coefficients": [
+    {
+      "feature": "cp_asymptomatic",
+      "coefficient": 0.9614382822493432,
+      "abs_coefficient": 0.9614382822493432,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "cp_atypical angina",
+      "coefficient": -0.7835082135448612,
+      "abs_coefficient": 0.7835082135448612,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "sex_Female",
+      "coefficient": -0.6598276493183669,
+      "abs_coefficient": 0.6598276493183669,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "slope_flat",
+      "coefficient": 0.649889713207164,
+      "abs_coefficient": 0.649889713207164,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "sex_Male",
+      "coefficient": 0.6415712565572819,
+      "abs_coefficient": 0.6415712565572819,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "ca",
+      "coefficient": 0.6162838680062694,
+      "abs_coefficient": 0.6162838680062694,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "thal_reversable defect",
+      "coefficient": 0.5932998999003717,
+      "abs_coefficient": 0.5932998999003717,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "missingindicator_ca",
+      "coefficient": 0.5228585359774879,
+      "abs_coefficient": 0.5228585359774879,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "slope_Missing",
+      "coefficient": -0.5032139435698265,
+      "abs_coefficient": 0.5032139435698265,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "exang",
+      "coefficient": 0.4740253690297628,
+      "abs_coefficient": 0.4740253690297628,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "thal_normal",
+      "coefficient": -0.3604584239435095,
+      "abs_coefficient": 0.3604584239435095,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "missingindicator_trestbps",
+      "coefficient": 0.34585480015150594,
+      "abs_coefficient": 0.34585480015150594,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "thal_Missing",
+      "coefficient": -0.3388101137392681,
+      "abs_coefficient": 0.3388101137392681,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "missingindicator_fbs",
+      "coefficient": 0.3348545685673382,
+      "abs_coefficient": 0.3348545685673382,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "thalch",
+      "coefficient": -0.2795012826487056,
+      "abs_coefficient": 0.2795012826487056,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "oldpeak",
+      "coefficient": 0.2611936048159609,
+      "abs_coefficient": 0.2611936048159609,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "missingindicator_chol",
+      "coefficient": 0.2397930288321345,
+      "abs_coefficient": 0.2397930288321345,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "restecg_Missing",
+      "coefficient": 0.2351868973115944,
+      "abs_coefficient": 0.2351868973115944,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "restecg_normal",
+      "coefficient": -0.22300349565475855,
+      "abs_coefficient": 0.22300349565475855,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "cp_non-anginal",
+      "coefficient": -0.21298606462955275,
+      "abs_coefficient": 0.21298606462955275,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "chol",
+      "coefficient": 0.18784709140806238,
+      "abs_coefficient": 0.18784709140806238,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "trestbps",
+      "coefficient": 0.14299999620187517,
+      "abs_coefficient": 0.14299999620187517,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "slope_downsloping",
+      "coefficient": -0.1355904241136962,
+      "abs_coefficient": 0.1355904241136962,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "fbs",
+      "coefficient": 0.1336977778631127,
+      "abs_coefficient": 0.1336977778631127,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "age",
+      "coefficient": 0.12293754235528553,
+      "abs_coefficient": 0.12293754235528553,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "restecg_st-t abnormality",
+      "coefficient": -0.09872156466148499,
+      "abs_coefficient": 0.09872156466148499,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "thal_fixed defect",
+      "coefficient": 0.08771224502132142,
+      "abs_coefficient": 0.08771224502132142,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "restecg_lv hypertrophy",
+      "coefficient": 0.06828177024356405,
+      "abs_coefficient": 0.06828177024356405,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "slope_upsloping",
+      "coefficient": -0.029341738284726214,
+      "abs_coefficient": 0.029341738284726214,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "missingindicator_thalch",
+      "coefficient": -0.020455756432509832,
+      "abs_coefficient": 0.020455756432509832,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "missingindicator_exang",
+      "coefficient": -0.020455756432509832,
+      "abs_coefficient": 0.020455756432509832,
+      "direction": "toward lower risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "cp_typical angina",
+      "coefficient": 0.016799603163986054,
+      "abs_coefficient": 0.016799603163986054,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    },
+    {
+      "feature": "missingindicator_oldpeak",
+      "coefficient": 0.004672015086665544,
+      "abs_coefficient": 0.004672015086665544,
+      "direction": "toward higher risk score",
+      "model": "logistic_regression",
+      "interpretation": "association learned by the model, per 1 SD of feature"
+    }
+  ],
+  "tree_importances": {
+    "random_forest": [
+      {
+        "feature": "cp_asymptomatic",
+        "importance": 0.13210394659049735,
+        "abs_importance": 0.13210394659049735,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "exang",
+        "importance": 0.09133816478861487,
+        "abs_importance": 0.09133816478861487,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "oldpeak",
+        "importance": 0.0898203895280413,
+        "abs_importance": 0.0898203895280413,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thalch",
+        "importance": 0.08628391802244492,
+        "abs_importance": 0.08628391802244492,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "age",
+        "importance": 0.07531991299893737,
+        "abs_importance": 0.07531991299893737,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "cp_atypical angina",
+        "importance": 0.07481372888292362,
+        "abs_importance": 0.07481372888292362,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "chol",
+        "importance": 0.05232308895006532,
+        "abs_importance": 0.05232308895006532,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "trestbps",
+        "importance": 0.04094844080598975,
+        "abs_importance": 0.04094844080598975,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "sex_Female",
+        "importance": 0.039921323072922926,
+        "abs_importance": 0.039921323072922926,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "slope_flat",
+        "importance": 0.03883360145080495,
+        "abs_importance": 0.03883360145080495,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "sex_Male",
+        "importance": 0.03651608826479222,
+        "abs_importance": 0.03651608826479222,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thal_normal",
+        "importance": 0.03450494185023871,
+        "abs_importance": 0.03450494185023871,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_chol",
+        "importance": 0.027257783987310474,
+        "abs_importance": 0.027257783987310474,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "slope_Missing",
+        "importance": 0.02254044315437801,
+        "abs_importance": 0.02254044315437801,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thal_reversable defect",
+        "importance": 0.020874659521563248,
+        "abs_importance": 0.020874659521563248,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "cp_non-anginal",
+        "importance": 0.018012917397522792,
+        "abs_importance": 0.018012917397522792,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "ca",
+        "importance": 0.01753507898563152,
+        "abs_importance": 0.01753507898563152,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_ca",
+        "importance": 0.011680507833772141,
+        "abs_importance": 0.011680507833772141,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "restecg_normal",
+        "importance": 0.011006433415926388,
+        "abs_importance": 0.011006433415926388,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_fbs",
+        "importance": 0.01095627482383364,
+        "abs_importance": 0.01095627482383364,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "slope_upsloping",
+        "importance": 0.010156983546835394,
+        "abs_importance": 0.010156983546835394,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thal_Missing",
+        "importance": 0.009900399120586503,
+        "abs_importance": 0.009900399120586503,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "fbs",
+        "importance": 0.008156778606442826,
+        "abs_importance": 0.008156778606442826,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "restecg_st-t abnormality",
+        "importance": 0.007324286317287053,
+        "abs_importance": 0.007324286317287053,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "cp_typical angina",
+        "importance": 0.00709435168165605,
+        "abs_importance": 0.00709435168165605,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "restecg_lv hypertrophy",
+        "importance": 0.006463639361966946,
+        "abs_importance": 0.006463639361966946,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_trestbps",
+        "importance": 0.003993450844089676,
+        "abs_importance": 0.003993450844089676,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_oldpeak",
+        "importance": 0.003467508863483755,
+        "abs_importance": 0.003467508863483755,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thal_fixed defect",
+        "importance": 0.0031271700388611347,
+        "abs_importance": 0.0031271700388611347,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_thalch",
+        "importance": 0.00293158312837975,
+        "abs_importance": 0.00293158312837975,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "slope_downsloping",
+        "importance": 0.0026830229979050253,
+        "abs_importance": 0.0026830229979050253,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_exang",
+        "importance": 0.001999715518309598,
+        "abs_importance": 0.001999715518309598,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "restecg_Missing",
+        "importance": 0.0001094656479847948,
+        "abs_importance": 0.0001094656479847948,
+        "model": "random_forest",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      }
+    ],
+    "xgboost": [
+      {
+        "feature": "cp_asymptomatic",
+        "importance": 0.23091067373752594,
+        "abs_importance": 0.23091067373752594,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "exang",
+        "importance": 0.12715695798397064,
+        "abs_importance": 0.12715695798397064,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_chol",
+        "importance": 0.06656073778867722,
+        "abs_importance": 0.06656073778867722,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thal_normal",
+        "importance": 0.06580234318971634,
+        "abs_importance": 0.06580234318971634,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "cp_atypical angina",
+        "importance": 0.06014639511704445,
+        "abs_importance": 0.06014639511704445,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "sex_Female",
+        "importance": 0.05562622845172882,
+        "abs_importance": 0.05562622845172882,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "sex_Male",
+        "importance": 0.05071015655994415,
+        "abs_importance": 0.05071015655994415,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "oldpeak",
+        "importance": 0.03962651267647743,
+        "abs_importance": 0.03962651267647743,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "slope_flat",
+        "importance": 0.03373827785253525,
+        "abs_importance": 0.03373827785253525,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "age",
+        "importance": 0.032020896673202515,
+        "abs_importance": 0.032020896673202515,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thalch",
+        "importance": 0.026409104466438293,
+        "abs_importance": 0.026409104466438293,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_ca",
+        "importance": 0.0249461829662323,
+        "abs_importance": 0.0249461829662323,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "ca",
+        "importance": 0.02255070209503174,
+        "abs_importance": 0.02255070209503174,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "restecg_st-t abnormality",
+        "importance": 0.02011377550661564,
+        "abs_importance": 0.02011377550661564,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thal_reversable defect",
+        "importance": 0.0193230789154768,
+        "abs_importance": 0.0193230789154768,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_thalch",
+        "importance": 0.01805957779288292,
+        "abs_importance": 0.01805957779288292,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "chol",
+        "importance": 0.016290394589304924,
+        "abs_importance": 0.016290394589304924,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "slope_Missing",
+        "importance": 0.013160972855985165,
+        "abs_importance": 0.013160972855985165,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_fbs",
+        "importance": 0.012527934275567532,
+        "abs_importance": 0.012527934275567532,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "trestbps",
+        "importance": 0.011295032687485218,
+        "abs_importance": 0.011295032687485218,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "restecg_normal",
+        "importance": 0.01068799290806055,
+        "abs_importance": 0.01068799290806055,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "restecg_lv hypertrophy",
+        "importance": 0.010219763033092022,
+        "abs_importance": 0.010219763033092022,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "fbs",
+        "importance": 0.008946271613240242,
+        "abs_importance": 0.008946271613240242,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_trestbps",
+        "importance": 0.008671224117279053,
+        "abs_importance": 0.008671224117279053,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thal_Missing",
+        "importance": 0.008589007891714573,
+        "abs_importance": 0.008589007891714573,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "cp_non-anginal",
+        "importance": 0.0059097642078995705,
+        "abs_importance": 0.0059097642078995705,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_oldpeak",
+        "importance": 0.0,
+        "abs_importance": 0.0,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "missingindicator_exang",
+        "importance": 0.0,
+        "abs_importance": 0.0,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "cp_typical angina",
+        "importance": 0.0,
+        "abs_importance": 0.0,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "restecg_Missing",
+        "importance": 0.0,
+        "abs_importance": 0.0,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "slope_downsloping",
+        "importance": 0.0,
+        "abs_importance": 0.0,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "slope_upsloping",
+        "importance": 0.0,
+        "abs_importance": 0.0,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      },
+      {
+        "feature": "thal_fixed defect",
+        "importance": 0.0,
+        "abs_importance": 0.0,
+        "model": "xgboost",
+        "interpretation": "impurity-based importance, in-sample, not causal"
+      }
+    ]
+  },
+  "individual_explanations": [
+    {
+      "model": "logistic_regression",
+      "case": "FP",
+      "row_index_in_explanation_sample": 611,
+      "plot": "shap_individual_logistic_regression_FP.png",
+      "contribution_table": "shap_individual_logistic_regression_FP.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.00395,
+      "sum_of_contributions": 3.81493,
+      "reconstructed_output": 3.81888,
+      "model_output": 3.81888,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "exang",
+          "contribution": 0.67762,
+          "direction": "toward disease",
+          "feature_value": 1.30609
+        },
+        {
+          "feature": "thal_reversable defect",
+          "contribution": 0.48651,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": 0.45188,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "missingindicator_ca",
+          "contribution": 0.35469,
+          "direction": "toward disease",
+          "feature_value": 0.70855
+        },
+        {
+          "feature": "fbs",
+          "contribution": 0.33876,
+          "direction": "toward disease",
+          "feature_value": 2.39839
+        }
+      ]
+    },
+    {
+      "model": "logistic_regression",
+      "case": "FN",
+      "row_index_in_explanation_sample": 451,
+      "plot": "shap_individual_logistic_regression_FN.png",
+      "contribution_table": "shap_individual_logistic_regression_FN.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.00395,
+      "sum_of_contributions": -2.66924,
+      "reconstructed_output": -2.6653,
+      "model_output": -2.6653,
+      "additivity_verified": true,
+      "observed_target": 1,
+      "top_contributors": [
+        {
+          "feature": "missingindicator_ca",
+          "contribution": -0.75371,
+          "direction": "toward no disease",
+          "feature_value": -1.41134
+        },
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.50956,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "exang",
+          "contribution": -0.30444,
+          "direction": "toward no disease",
+          "feature_value": -0.76564
+        },
+        {
+          "feature": "thal_normal",
+          "contribution": -0.29197,
+          "direction": "toward no disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "slope_flat",
+          "contribution": -0.22096,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        }
+      ]
+    },
+    {
+      "model": "logistic_regression",
+      "case": "TP",
+      "row_index_in_explanation_sample": 168,
+      "plot": "shap_individual_logistic_regression_TP.png",
+      "contribution_table": "shap_individual_logistic_regression_TP.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.00395,
+      "sum_of_contributions": 6.20311,
+      "reconstructed_output": 6.20705,
+      "model_output": 6.20705,
+      "additivity_verified": true,
+      "observed_target": 1,
+      "top_contributors": [
+        {
+          "feature": "ca",
+          "contribution": 2.99674,
+          "direction": "toward disease",
+          "feature_value": 4.7495
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": 0.90852,
+          "direction": "toward disease",
+          "feature_value": 3.35579
+        },
+        {
+          "feature": "missingindicator_ca",
+          "contribution": -0.75371,
+          "direction": "toward no disease",
+          "feature_value": -1.41134
+        },
+        {
+          "feature": "exang",
+          "contribution": 0.67762,
+          "direction": "toward disease",
+          "feature_value": 1.30609
+        },
+        {
+          "feature": "thal_reversable defect",
+          "contribution": 0.48651,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        }
+      ]
+    },
+    {
+      "model": "logistic_regression",
+      "case": "TN",
+      "row_index_in_explanation_sample": 74,
+      "plot": "shap_individual_logistic_regression_TN.png",
+      "contribution_table": "shap_individual_logistic_regression_TN.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.00395,
+      "sum_of_contributions": -5.01496,
+      "reconstructed_output": -5.01101,
+      "model_output": -5.01101,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "missingindicator_ca",
+          "contribution": -0.75371,
+          "direction": "toward no disease",
+          "feature_value": -1.41134
+        },
+        {
+          "feature": "cp_atypical angina",
+          "contribution": -0.61897,
+          "direction": "toward no disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "thalch",
+          "contribution": -0.60079,
+          "direction": "toward no disease",
+          "feature_value": 2.1753
+        },
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.50956,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "sex_Female",
+          "contribution": -0.48167,
+          "direction": "toward no disease",
+          "feature_value": 1.0
+        }
+      ]
+    },
+    {
+      "model": "logistic_regression",
+      "case": "high_missingness_case",
+      "row_index_in_explanation_sample": 287,
+      "plot": "shap_individual_logistic_regression_high_missingness_case.png",
+      "contribution_table": "shap_individual_logistic_regression_high_missingness_case.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.00395,
+      "sum_of_contributions": 0.49523,
+      "reconstructed_output": 0.49917,
+      "model_output": 0.49917,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "missingindicator_trestbps",
+          "contribution": 1.35872,
+          "direction": "toward disease",
+          "feature_value": 3.78594
+        },
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.50956,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "missingindicator_chol",
+          "contribution": 0.46777,
+          "direction": "toward disease",
+          "feature_value": 1.87492
+        },
+        {
+          "feature": "missingindicator_ca",
+          "contribution": 0.35469,
+          "direction": "toward disease",
+          "feature_value": 0.70855
+        },
+        {
+          "feature": "slope_Missing",
+          "contribution": -0.31199,
+          "direction": "toward no disease",
+          "feature_value": 1.0
+        }
+      ]
+    },
+    {
+      "model": "random_forest",
+      "case": "FP",
+      "row_index_in_explanation_sample": 289,
+      "plot": "shap_individual_random_forest_FP.png",
+      "contribution_table": "shap_individual_random_forest_FP.csv",
+      "output_scale": "probability",
+      "base_value_expected_output": 0.55244,
+      "sum_of_contributions": 0.30951,
+      "reconstructed_output": 0.86194,
+      "model_output": 0.86194,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "exang",
+          "contribution": 0.07547,
+          "direction": "toward disease",
+          "feature_value": 1.30609
+        },
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": 0.05886,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": 0.05152,
+          "direction": "toward disease",
+          "feature_value": 2.15117
+        },
+        {
+          "feature": "thalch",
+          "contribution": 0.03178,
+          "direction": "toward disease",
+          "feature_value": -1.04251
+        },
+        {
+          "feature": "slope_flat",
+          "contribution": 0.03144,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        }
+      ]
+    },
+    {
+      "model": "random_forest",
+      "case": "FN",
+      "row_index_in_explanation_sample": 671,
+      "plot": "shap_individual_random_forest_FN.png",
+      "contribution_table": "shap_individual_random_forest_FN.csv",
+      "output_scale": "probability",
+      "base_value_expected_output": 0.55244,
+      "sum_of_contributions": -0.30784,
+      "reconstructed_output": 0.2446,
+      "model_output": 0.2446,
+      "additivity_verified": true,
+      "observed_target": 1,
+      "top_contributors": [
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.09956,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": -0.07634,
+          "direction": "toward no disease",
+          "feature_value": -0.86036
+        },
+        {
+          "feature": "thalch",
+          "contribution": -0.06071,
+          "direction": "toward no disease",
+          "feature_value": 1.49151
+        },
+        {
+          "feature": "exang",
+          "contribution": -0.05343,
+          "direction": "toward no disease",
+          "feature_value": -0.76564
+        },
+        {
+          "feature": "cp_atypical angina",
+          "contribution": 0.03966,
+          "direction": "toward disease",
+          "feature_value": 0.0
+        }
+      ]
+    },
+    {
+      "model": "random_forest",
+      "case": "TP",
+      "row_index_in_explanation_sample": 301,
+      "plot": "shap_individual_random_forest_TP.png",
+      "contribution_table": "shap_individual_random_forest_TP.csv",
+      "output_scale": "probability",
+      "base_value_expected_output": 0.55244,
+      "sum_of_contributions": 0.42715,
+      "reconstructed_output": 0.97959,
+      "model_output": 0.97959,
+      "additivity_verified": true,
+      "observed_target": 1,
+      "top_contributors": [
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": 0.06281,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "exang",
+          "contribution": 0.05697,
+          "direction": "toward disease",
+          "feature_value": 1.30609
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": 0.04825,
+          "direction": "toward disease",
+          "feature_value": 1.14733
+        },
+        {
+          "feature": "slope_flat",
+          "contribution": 0.03836,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "thalch",
+          "contribution": 0.03289,
+          "direction": "toward disease",
+          "feature_value": -0.8414
+        }
+      ]
+    },
+    {
+      "model": "random_forest",
+      "case": "TN",
+      "row_index_in_explanation_sample": 307,
+      "plot": "shap_individual_random_forest_TN.png",
+      "contribution_table": "shap_individual_random_forest_TN.csv",
+      "output_scale": "probability",
+      "base_value_expected_output": 0.55244,
+      "sum_of_contributions": -0.54547,
+      "reconstructed_output": 0.00696,
+      "model_output": 0.00696,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.08716,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "cp_atypical angina",
+          "contribution": -0.08405,
+          "direction": "toward no disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": -0.05024,
+          "direction": "toward no disease",
+          "feature_value": -0.86036
+        },
+        {
+          "feature": "sex_Female",
+          "contribution": -0.04807,
+          "direction": "toward no disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "exang",
+          "contribution": -0.04691,
+          "direction": "toward no disease",
+          "feature_value": -0.76564
+        }
+      ]
+    },
+    {
+      "model": "random_forest",
+      "case": "high_missingness_case",
+      "row_index_in_explanation_sample": 287,
+      "plot": "shap_individual_random_forest_high_missingness_case.png",
+      "contribution_table": "shap_individual_random_forest_high_missingness_case.csv",
+      "output_scale": "probability",
+      "base_value_expected_output": 0.55244,
+      "sum_of_contributions": 0.03902,
+      "reconstructed_output": 0.59146,
+      "model_output": 0.59146,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.11302,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "exang",
+          "contribution": -0.04977,
+          "direction": "toward no disease",
+          "feature_value": -0.76564
+        },
+        {
+          "feature": "cp_atypical angina",
+          "contribution": 0.04314,
+          "direction": "toward disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": 0.03947,
+          "direction": "toward disease",
+          "feature_value": -0.30825
+        },
+        {
+          "feature": "sex_Female",
+          "contribution": 0.02453,
+          "direction": "toward disease",
+          "feature_value": 0.0
+        }
+      ]
+    },
+    {
+      "model": "xgboost",
+      "case": "FP",
+      "row_index_in_explanation_sample": 611,
+      "plot": "shap_individual_xgboost_FP.png",
+      "contribution_table": "shap_individual_xgboost_FP.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.21255,
+      "sum_of_contributions": 2.7238,
+      "reconstructed_output": 2.93635,
+      "model_output": 2.93635,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "exang",
+          "contribution": 0.6108,
+          "direction": "toward disease",
+          "feature_value": 1.30609
+        },
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": 0.53474,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": 0.47469,
+          "direction": "toward disease",
+          "feature_value": 1.14733
+        },
+        {
+          "feature": "thal_reversable defect",
+          "contribution": 0.47121,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "trestbps",
+          "contribution": 0.20774,
+          "direction": "toward disease",
+          "feature_value": 1.55166
+        }
+      ]
+    },
+    {
+      "model": "xgboost",
+      "case": "FN",
+      "row_index_in_explanation_sample": 75,
+      "plot": "shap_individual_xgboost_FN.png",
+      "contribution_table": "shap_individual_xgboost_FN.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.21255,
+      "sum_of_contributions": -2.37832,
+      "reconstructed_output": -2.16577,
+      "model_output": -2.16577,
+      "additivity_verified": true,
+      "observed_target": 1,
+      "top_contributors": [
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.75198,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": -0.35178,
+          "direction": "toward no disease",
+          "feature_value": -0.86036
+        },
+        {
+          "feature": "thalch",
+          "contribution": -0.33195,
+          "direction": "toward no disease",
+          "feature_value": 1.69263
+        },
+        {
+          "feature": "chol",
+          "contribution": -0.29699,
+          "direction": "toward no disease",
+          "feature_value": -1.71015
+        },
+        {
+          "feature": "age",
+          "contribution": -0.28226,
+          "direction": "toward no disease",
+          "feature_value": -2.11545
+        }
+      ]
+    },
+    {
+      "model": "xgboost",
+      "case": "TP",
+      "row_index_in_explanation_sample": 372,
+      "plot": "shap_individual_xgboost_TP.png",
+      "contribution_table": "shap_individual_xgboost_TP.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.21255,
+      "sum_of_contributions": 4.54319,
+      "reconstructed_output": 4.75573,
+      "model_output": 4.75573,
+      "additivity_verified": true,
+      "observed_target": 1,
+      "top_contributors": [
+        {
+          "feature": "thalch",
+          "contribution": 0.6234,
+          "direction": "toward disease",
+          "feature_value": -1.60562
+        },
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": 0.56402,
+          "direction": "toward disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "missingindicator_fbs",
+          "contribution": 0.5602,
+          "direction": "toward disease",
+          "feature_value": 3.06042
+        },
+        {
+          "feature": "exang",
+          "contribution": 0.48212,
+          "direction": "toward disease",
+          "feature_value": 1.30609
+        },
+        {
+          "feature": "oldpeak",
+          "contribution": 0.46021,
+          "direction": "toward disease",
+          "feature_value": 1.14733
+        }
+      ]
+    },
+    {
+      "model": "xgboost",
+      "case": "TN",
+      "row_index_in_explanation_sample": 307,
+      "plot": "shap_individual_xgboost_TN.png",
+      "contribution_table": "shap_individual_xgboost_TN.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.21255,
+      "sum_of_contributions": -4.69951,
+      "reconstructed_output": -4.48696,
+      "model_output": -4.48696,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.77518,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "sex_Female",
+          "contribution": -0.71711,
+          "direction": "toward no disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "cp_atypical angina",
+          "contribution": -0.67788,
+          "direction": "toward no disease",
+          "feature_value": 1.0
+        },
+        {
+          "feature": "age",
+          "contribution": -0.50254,
+          "direction": "toward no disease",
+          "feature_value": -1.14396
+        },
+        {
+          "feature": "thalch",
+          "contribution": -0.31868,
+          "direction": "toward no disease",
+          "feature_value": 1.08929
+        }
+      ]
+    },
+    {
+      "model": "xgboost",
+      "case": "high_missingness_case",
+      "row_index_in_explanation_sample": 287,
+      "plot": "shap_individual_xgboost_high_missingness_case.png",
+      "contribution_table": "shap_individual_xgboost_high_missingness_case.csv",
+      "output_scale": "log-odds",
+      "base_value_expected_output": 0.21255,
+      "sum_of_contributions": 0.2506,
+      "reconstructed_output": 0.46314,
+      "model_output": 0.46314,
+      "additivity_verified": true,
+      "observed_target": 0,
+      "top_contributors": [
+        {
+          "feature": "cp_asymptomatic",
+          "contribution": -0.69111,
+          "direction": "toward no disease",
+          "feature_value": 0.0
+        },
+        {
+          "feature": "missingindicator_trestbps",
+          "contribution": 0.43849,
+          "direction": "toward disease",
+          "feature_value": 3.78594
+        },
+        {
+          "feature": "missingindicator_chol",
+          "contribution": 0.39725,
+          "direction": "toward disease",
+          "feature_value": 1.87492
+        },
+        {
+          "feature": "exang",
+          "contribution": -0.25427,
+          "direction": "toward no disease",
+          "feature_value": -0.76564
+        },
+        {
+          "feature": "sex_Female",
+          "contribution": 0.20555,
+          "direction": "toward disease",
+          "feature_value": 0.0
+        }
+      ]
+    }
+  ],
+  "files": [
+    "global_feature_importance.png",
+    "logistic_regression_coefficients.csv",
+    "logistic_regression_shap_global.csv",
+    "random_forest_feature_importance.csv",
+    "random_forest_shap_global.csv",
+    "shap_global_bar_logistic_regression.png",
+    "shap_global_bar_random_forest.png",
+    "shap_global_bar_xgboost.png",
+    "shap_summary_logistic_regression.png",
+    "shap_summary_random_forest.png",
+    "shap_summary_xgboost.png",
+    "xgboost_feature_importance.csv",
+    "xgboost_shap_global.csv"
+  ],
+  "console_lines": [
+    "\nlogistic_regression:",
+    "  n transformed features: 33",
+    "  standardized coefficients (top 5 by |coef|):",
+    "    cp_asymptomatic                  +0.9614  toward higher risk score",
+    "    cp_atypical angina               -0.7835  toward lower risk score",
+    "    sex_Female                       -0.6598  toward lower risk score",
+    "    slope_flat                       +0.6499  toward higher risk score",
+    "    sex_Male                         +0.6416  toward higher risk score",
+    "  SHAP global importance (top 5, mean |SHAP|; scale: log-odds):",
+    "    missingindicator_ca              0.4881  toward higher risk score",
+    "    cp_asymptomatic                  0.4783  toward higher risk score",
+    "    exang                            0.4424  toward higher risk score",
+    "    ca                               0.3244  toward higher risk score",
+    "    slope_flat                       0.2975  toward higher risk score",
+    "  additivity check: max |base+sum(SHAP)-output| = 1.78e-15 -> OK",
+    "  individual explanations written: 5",
+    "    cases: FP(row 611), FN(row 451), TP(row 168), TN(row 74), high_missingness_case(row 287)",
+    "\nrandom_forest:",
+    "  n transformed features: 33",
+    "  impurity-based importance (top 5):",
+    "    cp_asymptomatic                  0.1321",
+    "    exang                            0.0913",
+    "    oldpeak                          0.0898",
+    "    thalch                           0.0863",
+    "    age                              0.0753",
+    "  SHAP global importance (top 5, mean |SHAP|; scale: probability):",
+    "    cp_asymptomatic                  0.0869  effect varies by patient (signed contributions cancel)",
+    "    exang                            0.0630  effect varies by patient (signed contributions cancel)",
+    "    oldpeak                          0.0505  effect varies by patient (signed contributions cancel)",
+    "    cp_atypical angina               0.0436  effect varies by patient (signed contributions cancel)",
+    "    thalch                           0.0367  effect varies by patient (signed contributions cancel)",
+    "  additivity check: max |base+sum(SHAP)-output| = 1.39e-15 -> OK",
+    "  individual explanations written: 5",
+    "    cases: FP(row 289), FN(row 671), TP(row 301), TN(row 307), high_missingness_case(row 287)",
+    "\nxgboost:",
+    "  n transformed features: 33",
+    "  impurity-based importance (top 5):",
+    "    cp_asymptomatic                  0.2309",
+    "    exang                            0.1272",
+    "    missingindicator_chol            0.0666",
+    "    thal_normal                      0.0658",
+    "    cp_atypical angina               0.0601",
+    "  SHAP global importance (top 5, mean |SHAP|; scale: log-odds):",
+    "    cp_asymptomatic                  0.6254  effect varies by patient (signed contributions cancel)",
+    "    exang                            0.3674  effect varies by patient (signed contributions cancel)",
+    "    oldpeak                          0.3376  effect varies by patient (signed contributions cancel)",
+    "    sex_Female                       0.2988  effect varies by patient (signed contributions cancel)",
+    "    slope_flat                       0.2645  effect varies by patient (signed contributions cancel)",
+    "  additivity check: max |base+sum(SHAP)-output| = 4.74e-06 -> OK",
+    "  individual explanations written: 5",
+    "    cases: FP(row 611), FN(row 75), TP(row 372), TN(row 307), high_missingness_case(row 287)"
+  ]
+}

@@ -1,0 +1,1928 @@
+{
+  "module": "heart_disease_risk",
+  "stage": "3 - validation, robustness, calibration, explainability",
+  "generated_utc": "2026-10-01T06:38:31+00:00",
+  "disclaimer": "Research prototype for health risk assessment. Model outputs are research risk scores that require external validation. Not a medical device and not a diagnostic system.",
+  "data": {
+    "path": "data/heart_disease_uci.csv",
+    "sha256": "574f2fa2b43012fa25fca4fcdb36bd7c6bccdd0af4242f6c0e4c8633c5a072ae",
+    "rows": 920
+  },
+  "seed": 42,
+  "cv": {
+    "n_splits": 5,
+    "n_repeats": 5,
+    "stratification": "cohort x target",
+    "total_folds": 25,
+    "scope": "training portion only; holdout excluded"
+  },
+  "holdout": {
+    "policy": "locked; used once after all development decisions were frozen",
+    "test_size": 0.2,
+    "n_train": 736,
+    "n_test": 184
+  },
+  "features": {
+    "full": [
+      "age",
+      "trestbps",
+      "chol",
+      "thalch",
+      "oldpeak",
+      "ca",
+      "sex",
+      "cp",
+      "restecg",
+      "slope",
+      "thal",
+      "fbs",
+      "exang"
+    ],
+    "ablated": [
+      "age",
+      "trestbps",
+      "chol",
+      "thalch",
+      "oldpeak",
+      "sex",
+      "cp",
+      "restecg",
+      "slope",
+      "thal",
+      "fbs",
+      "exang"
+    ],
+    "excluded": [
+      "id",
+      "dataset",
+      "num",
+      "target"
+    ],
+    "transformed_full": [
+      "numeric__age",
+      "numeric__trestbps",
+      "numeric__chol",
+      "numeric__thalch",
+      "numeric__oldpeak",
+      "numeric__ca",
+      "numeric__fbs",
+      "numeric__exang",
+      "numeric__missingindicator_trestbps",
+      "numeric__missingindicator_chol",
+      "numeric__missingindicator_thalch",
+      "numeric__missingindicator_oldpeak",
+      "numeric__missingindicator_ca",
+      "numeric__missingindicator_fbs",
+      "numeric__missingindicator_exang",
+      "categorical__sex_Female",
+      "categorical__sex_Male",
+      "categorical__cp_asymptomatic",
+      "categorical__cp_atypical angina",
+      "categorical__cp_non-anginal",
+      "categorical__cp_typical angina",
+      "categorical__restecg_Missing",
+      "categorical__restecg_lv hypertrophy",
+      "categorical__restecg_normal",
+      "categorical__restecg_st-t abnormality",
+      "categorical__slope_Missing",
+      "categorical__slope_downsloping",
+      "categorical__slope_flat",
+      "categorical__slope_upsloping",
+      "categorical__thal_Missing",
+      "categorical__thal_fixed defect",
+      "categorical__thal_normal",
+      "categorical__thal_reversable defect"
+    ]
+  },
+  "cv_metrics_overall": [
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full",
+      "n_folds": 25,
+      "roc_auc_mean": 0.9020484144848097,
+      "roc_auc_sd": 0.019365205458200058,
+      "pr_auc_mean": 0.9103472908962869,
+      "pr_auc_sd": 0.020637000875003236,
+      "recall_mean": 0.8443824149352605,
+      "recall_sd": 0.035417679071563415,
+      "precision_mean": 0.8368619768247023,
+      "precision_sd": 0.03128522544677592,
+      "f1_mean": 0.840111184079504,
+      "f1_sd": 0.025955343347298633
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full",
+      "n_folds": 25,
+      "roc_auc_mean": 0.8902041778382332,
+      "roc_auc_sd": 0.018877288873052428,
+      "pr_auc_mean": 0.8909139196334599,
+      "pr_auc_sd": 0.02027523897900977,
+      "recall_mean": 0.8452783800060223,
+      "recall_sd": 0.038653443242181514,
+      "precision_mean": 0.8214628193254494,
+      "precision_sd": 0.02836565221434701,
+      "f1_mean": 0.8325848769735188,
+      "f1_sd": 0.024595765890627546
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full",
+      "n_folds": 25,
+      "roc_auc_mean": 0.871378909364712,
+      "roc_auc_sd": 0.019673323208897336,
+      "pr_auc_mean": 0.8697425232903981,
+      "pr_auc_sd": 0.022293091149255595,
+      "recall_mean": 0.8349984944293888,
+      "recall_sd": 0.03277552163568945,
+      "precision_mean": 0.8215249424860334,
+      "precision_sd": 0.030878412266772307,
+      "f1_mean": 0.827621190606762,
+      "f1_sd": 0.022815363721354114
+    }
+  ],
+  "cv_metrics_tuned_overall": [
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full",
+      "n_folds": 25,
+      "roc_auc_mean": 0.903298930434634,
+      "roc_auc_sd": 0.019674692856556642,
+      "pr_auc_mean": 0.9124653172436109,
+      "pr_auc_sd": 0.020212167227674327,
+      "recall_mean": 0.8473455284552845,
+      "recall_sd": 0.036290327407935107,
+      "precision_mean": 0.837752105398033,
+      "precision_sd": 0.03238378920731317,
+      "f1_mean": 0.8420388106066984,
+      "f1_sd": 0.02738865398269285
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full",
+      "n_folds": 25,
+      "roc_auc_mean": 0.8970005447459638,
+      "roc_auc_sd": 0.0203885297285861,
+      "pr_auc_mean": 0.9008474188266775,
+      "pr_auc_sd": 0.02198827616944387,
+      "recall_mean": 0.8571925624811805,
+      "recall_sd": 0.043378441289735,
+      "precision_mean": 0.8240619264494045,
+      "precision_sd": 0.030917658857930883,
+      "f1_mean": 0.8397582847495868,
+      "f1_sd": 0.030544446649628694
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full",
+      "n_folds": 25,
+      "roc_auc_mean": 0.8955583115098142,
+      "roc_auc_sd": 0.01942131858265887,
+      "pr_auc_mean": 0.9032012664874361,
+      "pr_auc_sd": 0.0219224213800862,
+      "recall_mean": 0.8472785305630834,
+      "recall_sd": 0.037680526172522086,
+      "precision_mean": 0.8334286941734875,
+      "precision_sd": 0.029203774736216742,
+      "f1_mean": 0.839859632030636,
+      "f1_sd": 0.027344101245338207
+    }
+  ],
+  "oof_prediction_policy": "each row's out-of-fold score is the mean of its per-repeat predictions; every repeat's model never saw that row",
+  "search": {
+    "logistic_regression": {
+      "space": {
+        "model": "logistic_regression",
+        "parameters": {
+          "model__C": [
+            "0.01",
+            "0.03",
+            "0.1",
+            "0.3",
+            "1.0",
+            "3.0",
+            "10.0",
+            "30.0"
+          ],
+          "model__class_weight": [
+            "None",
+            "balanced"
+          ],
+          "model__penalty": [
+            "l2"
+          ]
+        },
+        "total_combinations": 16,
+        "n_iter_sampled": 16,
+        "sampling": "exhaustive grid (n_iter covers every combination)",
+        "search_type": "RandomizedSearchCV",
+        "cv_folds_used": 5
+      },
+      "best_params": {
+        "penalty": "l2",
+        "class_weight": null,
+        "C": 0.3
+      },
+      "best_cv_roc_auc": 0.9065278086953248,
+      "best_cv_roc_auc_sd": 0.020197888954715255,
+      "n_candidates_scored": 16,
+      "n_unique_combinations_scored": 16,
+      "space_exhaustively_covered": true
+    },
+    "random_forest": {
+      "space": {
+        "model": "random_forest",
+        "parameters": {
+          "model__n_estimators": [
+            "300",
+            "500",
+            "800"
+          ],
+          "model__max_depth": [
+            "3",
+            "5",
+            "8",
+            "None"
+          ],
+          "model__min_samples_leaf": [
+            "1",
+            "2",
+            "4",
+            "8"
+          ],
+          "model__max_features": [
+            "sqrt",
+            "0.5",
+            "1.0"
+          ],
+          "model__class_weight": [
+            "None",
+            "balanced"
+          ]
+        },
+        "total_combinations": 288,
+        "n_iter_sampled": 20,
+        "sampling": "random sampling WITH replacement; some combinations may be drawn more than once and others not at all",
+        "search_type": "RandomizedSearchCV",
+        "cv_folds_used": 5
+      },
+      "best_params": {
+        "n_estimators": 300,
+        "min_samples_leaf": 2,
+        "max_features": "sqrt",
+        "max_depth": 8,
+        "class_weight": null
+      },
+      "best_cv_roc_auc": 0.9015982468292059,
+      "best_cv_roc_auc_sd": 0.021909251547016926,
+      "n_candidates_scored": 20,
+      "n_unique_combinations_scored": 20,
+      "space_exhaustively_covered": false
+    },
+    "xgboost": {
+      "space": {
+        "model": "xgboost",
+        "parameters": {
+          "model__n_estimators": [
+            "200",
+            "400",
+            "700"
+          ],
+          "model__max_depth": [
+            "2",
+            "3",
+            "4",
+            "6"
+          ],
+          "model__learning_rate": [
+            "0.03",
+            "0.06",
+            "0.1",
+            "0.2"
+          ],
+          "model__min_child_weight": [
+            "1",
+            "3",
+            "5"
+          ],
+          "model__subsample": [
+            "0.7",
+            "0.9",
+            "1.0"
+          ],
+          "model__reg_lambda": [
+            "1.0",
+            "3.0",
+            "10.0"
+          ]
+        },
+        "total_combinations": 1296,
+        "n_iter_sampled": 20,
+        "sampling": "random sampling WITH replacement; some combinations may be drawn more than once and others not at all",
+        "search_type": "RandomizedSearchCV",
+        "cv_folds_used": 5
+      },
+      "best_params": {
+        "subsample": 1.0,
+        "reg_lambda": 1.0,
+        "n_estimators": 400,
+        "min_child_weight": 5,
+        "max_depth": 2,
+        "learning_rate": 0.03
+      },
+      "best_cv_roc_auc": 0.897866326549031,
+      "best_cv_roc_auc_sd": 0.020984053470903884,
+      "n_candidates_scored": 20,
+      "n_unique_combinations_scored": 20,
+      "space_exhaustively_covered": false
+    }
+  },
+  "threshold_grid": [
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7
+  ],
+  "threshold_analysis": [
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full",
+      "threshold": 0.3,
+      "sensitivity_recall": 0.9361179361179361,
+      "specificity": 0.6261398176291794,
+      "precision": 0.7559523809523809,
+      "f1": 0.8364434687156971,
+      "accuracy": 0.7975543478260869,
+      "roc_auc": 0.9037288186224357,
+      "pr_auc": 0.9110587355657116,
+      "tn": 206,
+      "fp": 123,
+      "fn": 26,
+      "tp": 381
+    },
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full",
+      "threshold": 0.4,
+      "sensitivity_recall": 0.8968058968058968,
+      "specificity": 0.7355623100303952,
+      "precision": 0.8075221238938053,
+      "f1": 0.8498253783469151,
+      "accuracy": 0.8247282608695652,
+      "roc_auc": 0.9037288186224357,
+      "pr_auc": 0.9110587355657116,
+      "tn": 242,
+      "fp": 87,
+      "fn": 42,
+      "tp": 365
+    },
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full",
+      "threshold": 0.5,
+      "sensitivity_recall": 0.8452088452088452,
+      "specificity": 0.7993920972644377,
+      "precision": 0.8390243902439024,
+      "f1": 0.8421052631578947,
+      "accuracy": 0.8247282608695652,
+      "roc_auc": 0.9037288186224357,
+      "pr_auc": 0.9110587355657116,
+      "tn": 263,
+      "fp": 66,
+      "fn": 63,
+      "tp": 344
+    },
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full",
+      "threshold": 0.6,
+      "sensitivity_recall": 0.7886977886977887,
+      "specificity": 0.8480243161094225,
+      "precision": 0.8652291105121294,
+      "f1": 0.8251928020565553,
+      "accuracy": 0.8152173913043478,
+      "roc_auc": 0.9037288186224357,
+      "pr_auc": 0.9110587355657116,
+      "tn": 279,
+      "fp": 50,
+      "fn": 86,
+      "tp": 321
+    },
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full",
+      "threshold": 0.7,
+      "sensitivity_recall": 0.7272727272727273,
+      "specificity": 0.8996960486322189,
+      "precision": 0.8996960486322189,
+      "f1": 0.8043478260869565,
+      "accuracy": 0.8043478260869565,
+      "roc_auc": 0.9037288186224357,
+      "pr_auc": 0.9110587355657116,
+      "tn": 296,
+      "fp": 33,
+      "fn": 111,
+      "tp": 296
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full",
+      "threshold": 0.3,
+      "sensitivity_recall": 0.9631449631449631,
+      "specificity": 0.574468085106383,
+      "precision": 0.7368421052631579,
+      "f1": 0.8349307774227902,
+      "accuracy": 0.7894021739130435,
+      "roc_auc": 0.8969627267499608,
+      "pr_auc": 0.8966932338847569,
+      "tn": 189,
+      "fp": 140,
+      "fn": 15,
+      "tp": 392
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full",
+      "threshold": 0.4,
+      "sensitivity_recall": 0.9287469287469288,
+      "specificity": 0.6717325227963525,
+      "precision": 0.7777777777777778,
+      "f1": 0.8465845464725644,
+      "accuracy": 0.813858695652174,
+      "roc_auc": 0.8969627267499608,
+      "pr_auc": 0.8966932338847569,
+      "tn": 221,
+      "fp": 108,
+      "fn": 29,
+      "tp": 378
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full",
+      "threshold": 0.5,
+      "sensitivity_recall": 0.8624078624078624,
+      "specificity": 0.7811550151975684,
+      "precision": 0.8297872340425532,
+      "f1": 0.8457831325301205,
+      "accuracy": 0.8260869565217391,
+      "roc_auc": 0.8969627267499608,
+      "pr_auc": 0.8966932338847569,
+      "tn": 257,
+      "fp": 72,
+      "fn": 56,
+      "tp": 351
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full",
+      "threshold": 0.6,
+      "sensitivity_recall": 0.769041769041769,
+      "specificity": 0.8541033434650456,
+      "precision": 0.8670360110803325,
+      "f1": 0.8151041666666666,
+      "accuracy": 0.8070652173913043,
+      "roc_auc": 0.8969627267499608,
+      "pr_auc": 0.8966932338847569,
+      "tn": 281,
+      "fp": 48,
+      "fn": 94,
+      "tp": 313
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full",
+      "threshold": 0.7,
+      "sensitivity_recall": 0.6584766584766585,
+      "specificity": 0.9027355623100304,
+      "precision": 0.8933333333333333,
+      "f1": 0.7581329561527581,
+      "accuracy": 0.7676630434782609,
+      "roc_auc": 0.8969627267499608,
+      "pr_auc": 0.8966932338847569,
+      "tn": 297,
+      "fp": 32,
+      "fn": 139,
+      "tp": 268
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full",
+      "threshold": 0.3,
+      "sensitivity_recall": 0.9385749385749386,
+      "specificity": 0.6261398176291794,
+      "precision": 0.7564356435643564,
+      "f1": 0.8377192982456141,
+      "accuracy": 0.7989130434782609,
+      "roc_auc": 0.8972913228232378,
+      "pr_auc": 0.901004085293744,
+      "tn": 206,
+      "fp": 123,
+      "fn": 25,
+      "tp": 382
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full",
+      "threshold": 0.4,
+      "sensitivity_recall": 0.8918918918918919,
+      "specificity": 0.7082066869300911,
+      "precision": 0.7908496732026143,
+      "f1": 0.8383371824480369,
+      "accuracy": 0.8097826086956522,
+      "roc_auc": 0.8972913228232378,
+      "pr_auc": 0.901004085293744,
+      "tn": 233,
+      "fp": 96,
+      "fn": 44,
+      "tp": 363
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full",
+      "threshold": 0.5,
+      "sensitivity_recall": 0.8452088452088452,
+      "specificity": 0.8085106382978723,
+      "precision": 0.8452088452088452,
+      "f1": 0.8452088452088452,
+      "accuracy": 0.8288043478260869,
+      "roc_auc": 0.8972913228232378,
+      "pr_auc": 0.901004085293744,
+      "tn": 266,
+      "fp": 63,
+      "fn": 63,
+      "tp": 344
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full",
+      "threshold": 0.6,
+      "sensitivity_recall": 0.7985257985257985,
+      "specificity": 0.8419452887537994,
+      "precision": 0.8620689655172413,
+      "f1": 0.8290816326530612,
+      "accuracy": 0.8179347826086957,
+      "roc_auc": 0.8972913228232378,
+      "pr_auc": 0.901004085293744,
+      "tn": 277,
+      "fp": 52,
+      "fn": 82,
+      "tp": 325
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full",
+      "threshold": 0.7,
+      "sensitivity_recall": 0.7199017199017199,
+      "specificity": 0.8875379939209727,
+      "precision": 0.8878787878787879,
+      "f1": 0.7951153324287653,
+      "accuracy": 0.7948369565217391,
+      "roc_auc": 0.8972913228232378,
+      "pr_auc": 0.901004085293744,
+      "tn": 292,
+      "fp": 37,
+      "fn": 114,
+      "tp": 293
+    }
+  ],
+  "calibration": [
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full",
+      "n": 736,
+      "prevalence": 0.5529891304347826,
+      "mean_predicted_probability": 0.553046232977337,
+      "brier_score": 0.1225640496020912,
+      "brier_baseline_constant_prevalence": 0.2471921520557656,
+      "expected_calibration_error": 0.023945613096140735,
+      "calibration_intercept": -0.002604894538619192,
+      "calibration_slope": 1.013330503655043
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full",
+      "n": 736,
+      "prevalence": 0.5529891304347826,
+      "mean_predicted_probability": 0.5501430623036477,
+      "brier_score": 0.12849360868971624,
+      "brier_baseline_constant_prevalence": 0.2471921520557656,
+      "expected_calibration_error": 0.05101023068153683,
+      "calibration_intercept": -0.04145872970556979,
+      "calibration_slope": 1.3317660295521945
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full",
+      "n": 736,
+      "prevalence": 0.5529891304347826,
+      "mean_predicted_probability": 0.5517640369965786,
+      "brier_score": 0.12624026609148348,
+      "brier_baseline_constant_prevalence": 0.2471921520557656,
+      "expected_calibration_error": 0.03167515302939934,
+      "calibration_intercept": 0.002949418281691463,
+      "calibration_slope": 1.039998235955509
+    }
+  ],
+  "ablation": [
+    {
+      "model": "logistic_regression",
+      "feature_variant": "full_13_features",
+      "n_folds": 25,
+      "roc_auc_mean": 0.903298930434634,
+      "roc_auc_sd": 0.019674692856556642,
+      "pr_auc_mean": 0.9124653172436109,
+      "pr_auc_sd": 0.020212167227674327,
+      "recall_mean": 0.8473455284552845,
+      "recall_sd": 0.036290327407935107,
+      "precision_mean": 0.837752105398033,
+      "precision_sd": 0.03238378920731317,
+      "f1_mean": 0.8420388106066984,
+      "f1_sd": 0.02738865398269285
+    },
+    {
+      "model": "logistic_regression",
+      "feature_variant": "no_ca_12_features",
+      "n_folds": 25,
+      "roc_auc_mean": 0.8953401266609009,
+      "roc_auc_sd": 0.02030738623553989,
+      "pr_auc_mean": 0.905143357312419,
+      "pr_auc_sd": 0.020260051297377363,
+      "recall_mean": 0.8394491117133392,
+      "recall_sd": 0.04010622826771983,
+      "precision_mean": 0.8257665266663777,
+      "precision_sd": 0.03075483926071428,
+      "f1_mean": 0.8320431958887764,
+      "f1_sd": 0.02871049364140869
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "full_13_features",
+      "n_folds": 25,
+      "roc_auc_mean": 0.8970005447459638,
+      "roc_auc_sd": 0.0203885297285861,
+      "pr_auc_mean": 0.9008474188266775,
+      "pr_auc_sd": 0.02198827616944387,
+      "recall_mean": 0.8571925624811805,
+      "recall_sd": 0.043378441289735,
+      "precision_mean": 0.8240619264494045,
+      "precision_sd": 0.030917658857930883,
+      "f1_mean": 0.8397582847495868,
+      "f1_sd": 0.030544446649628694
+    },
+    {
+      "model": "random_forest",
+      "feature_variant": "no_ca_12_features",
+      "n_folds": 25,
+      "roc_auc_mean": 0.8923232997735081,
+      "roc_auc_sd": 0.020021962463844547,
+      "pr_auc_mean": 0.895907934897191,
+      "pr_auc_sd": 0.023260058681319244,
+      "recall_mean": 0.8586136705811502,
+      "recall_sd": 0.040036908597505534,
+      "precision_mean": 0.8147433284957581,
+      "precision_sd": 0.033235537442438616,
+      "f1_mean": 0.835653964563961,
+      "f1_sd": 0.030907271411474587
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "full_13_features",
+      "n_folds": 25,
+      "roc_auc_mean": 0.8955583115098142,
+      "roc_auc_sd": 0.01942131858265887,
+      "pr_auc_mean": 0.9032012664874361,
+      "pr_auc_sd": 0.0219224213800862,
+      "recall_mean": 0.8472785305630834,
+      "recall_sd": 0.037680526172522086,
+      "precision_mean": 0.8334286941734875,
+      "precision_sd": 0.029203774736216742,
+      "f1_mean": 0.839859632030636,
+      "f1_sd": 0.027344101245338207
+    },
+    {
+      "model": "xgboost",
+      "feature_variant": "no_ca_12_features",
+      "n_folds": 25,
+      "roc_auc_mean": 0.8879622383530891,
+      "roc_auc_sd": 0.01873795073778671,
+      "pr_auc_mean": 0.894586572588926,
+      "pr_auc_sd": 0.023303390426532573,
+      "recall_mean": 0.8355043661547725,
+      "recall_sd": 0.03716559254088416,
+      "precision_mean": 0.8201933979888899,
+      "precision_sd": 0.03467241833649318,
+      "f1_mean": 0.827273248984973,
+      "f1_sd": 0.029335517500445538
+    }
+  ],
+  "error_analysis": {
+    "threshold": 0.5,
+    "models": {
+      "logistic_regression": {
+        "tn": 263,
+        "fp": 66,
+        "fn": 63,
+        "tp": 344,
+        "error_rate": 0.17527173913043478,
+        "fn_share_of_errors": 0.4883720930232558,
+        "mean_prob_by_outcome": {
+          "FN": 0.3175,
+          "FP": 0.7288,
+          "TN": 0.1621,
+          "TP": 0.8614
+        },
+        "age_mean_by_outcome": {
+          "FN": 53.32,
+          "FP": 56.58,
+          "TN": 49.12,
+          "TP": 56.5
+        }
+      },
+      "random_forest": {
+        "tn": 257,
+        "fp": 72,
+        "fn": 56,
+        "tp": 351,
+        "error_rate": 0.17391304347826086,
+        "fn_share_of_errors": 0.4375,
+        "mean_prob_by_outcome": {
+          "FN": 0.3648,
+          "FP": 0.6924,
+          "TN": 0.2074,
+          "TP": 0.8015
+        },
+        "age_mean_by_outcome": {
+          "FN": 52.52,
+          "FP": 56.79,
+          "TN": 48.88,
+          "TP": 56.57
+        }
+      },
+      "xgboost": {
+        "tn": 266,
+        "fp": 63,
+        "fn": 63,
+        "tp": 344,
+        "error_rate": 0.17119565217391305,
+        "fn_share_of_errors": 0.5,
+        "mean_prob_by_outcome": {
+          "FN": 0.3171,
+          "FP": 0.7423,
+          "TN": 0.178,
+          "TP": 0.8488
+        },
+        "age_mean_by_outcome": {
+          "FN": 52.3,
+          "FP": 56.86,
+          "TN": 49.14,
+          "TP": 56.69
+        }
+      }
+    },
+    "groups": {
+      "logistic_regression": {
+        "dataset": [
+          {
+            "level": "Cleveland",
+            "n": 243,
+            "error_rate": 0.17695473251028807,
+            "fp_rate": 0.0823045267489712,
+            "fn_rate": 0.09465020576131687,
+            "prevalence": 0.4567901234567901,
+            "tn": 112,
+            "fp": 20,
+            "fn": 23,
+            "tp": 88
+          },
+          {
+            "level": "Hungary",
+            "n": 235,
+            "error_rate": 0.15319148936170213,
+            "fp_rate": 0.06808510638297872,
+            "fn_rate": 0.0851063829787234,
+            "prevalence": 0.3617021276595745,
+            "tn": 134,
+            "fp": 16,
+            "fn": 20,
+            "tp": 65
+          },
+          {
+            "level": "Switzerland",
+            "n": 98,
+            "error_rate": 0.09183673469387756,
+            "fp_rate": 0.061224489795918366,
+            "fn_rate": 0.030612244897959183,
+            "prevalence": 0.9387755102040817,
+            "tn": 0,
+            "fp": 6,
+            "fn": 3,
+            "tp": 89
+          },
+          {
+            "level": "VA Long Beach",
+            "n": 160,
+            "error_rate": 0.25625,
+            "fp_rate": 0.15,
+            "fn_rate": 0.10625,
+            "prevalence": 0.74375,
+            "tn": 17,
+            "fp": 24,
+            "fn": 17,
+            "tp": 102
+          }
+        ],
+        "sex": [
+          {
+            "level": "Female",
+            "n": 156,
+            "error_rate": 0.11538461538461539,
+            "fp_rate": 0.038461538461538464,
+            "fn_rate": 0.07692307692307693,
+            "prevalence": 0.23717948717948717,
+            "tn": 113,
+            "fp": 6,
+            "fn": 12,
+            "tp": 25
+          },
+          {
+            "level": "Male",
+            "n": 580,
+            "error_rate": 0.19137931034482758,
+            "fp_rate": 0.10344827586206896,
+            "fn_rate": 0.08793103448275862,
+            "prevalence": 0.6379310344827587,
+            "tn": 150,
+            "fp": 60,
+            "fn": 51,
+            "tp": 319
+          }
+        ],
+        "missing_ca": [
+          {
+            "level": "ca missing",
+            "n": 490,
+            "error_rate": 0.17346938775510204,
+            "fp_rate": 0.09183673469387756,
+            "fn_rate": 0.08163265306122448,
+            "prevalence": 0.5959183673469388,
+            "tn": 153,
+            "fp": 45,
+            "fn": 40,
+            "tp": 252
+          },
+          {
+            "level": "ca recorded",
+            "n": 246,
+            "error_rate": 0.17886178861788618,
+            "fp_rate": 0.08536585365853659,
+            "fn_rate": 0.09349593495934959,
+            "prevalence": 0.46747967479674796,
+            "tn": 110,
+            "fp": 21,
+            "fn": 23,
+            "tp": 92
+          }
+        ],
+        "missing_thal": [
+          {
+            "level": "thal missing",
+            "n": 392,
+            "error_rate": 0.1836734693877551,
+            "fp_rate": 0.09948979591836735,
+            "fn_rate": 0.08418367346938775,
+            "prevalence": 0.548469387755102,
+            "tn": 138,
+            "fp": 39,
+            "fn": 33,
+            "tp": 182
+          },
+          {
+            "level": "thal recorded",
+            "n": 344,
+            "error_rate": 0.16569767441860464,
+            "fp_rate": 0.07848837209302326,
+            "fn_rate": 0.0872093023255814,
+            "prevalence": 0.5581395348837209,
+            "tn": 125,
+            "fp": 27,
+            "fn": 30,
+            "tp": 162
+          }
+        ],
+        "missing_any": [
+          {
+            "level": "any missing",
+            "n": 495,
+            "error_rate": 0.17373737373737375,
+            "fp_rate": 0.09292929292929293,
+            "fn_rate": 0.08080808080808081,
+            "prevalence": 0.597979797979798,
+            "tn": 153,
+            "fp": 46,
+            "fn": 40,
+            "tp": 256
+          },
+          {
+            "level": "complete",
+            "n": 241,
+            "error_rate": 0.17842323651452283,
+            "fp_rate": 0.08298755186721991,
+            "fn_rate": 0.0954356846473029,
+            "prevalence": 0.4605809128630705,
+            "tn": 110,
+            "fp": 20,
+            "fn": 23,
+            "tp": 88
+          }
+        ],
+        "oldpeak_gt_1": [
+          {
+            "level": "no",
+            "n": 500,
+            "error_rate": 0.202,
+            "fp_rate": 0.09,
+            "fn_rate": 0.112,
+            "prevalence": 0.448,
+            "tn": 231,
+            "fp": 45,
+            "fn": 56,
+            "tp": 168
+          },
+          {
+            "level": "yes",
+            "n": 236,
+            "error_rate": 0.11864406779661017,
+            "fp_rate": 0.08898305084745763,
+            "fn_rate": 0.029661016949152543,
+            "prevalence": 0.7754237288135594,
+            "tn": 32,
+            "fp": 21,
+            "fn": 7,
+            "tp": 176
+          }
+        ],
+        "exang_true": [
+          {
+            "level": "no",
+            "n": 464,
+            "error_rate": 0.2025862068965517,
+            "fp_rate": 0.08405172413793104,
+            "fn_rate": 0.11853448275862069,
+            "prevalence": 0.38362068965517243,
+            "tn": 247,
+            "fp": 39,
+            "fn": 55,
+            "tp": 123
+          },
+          {
+            "level": "yes",
+            "n": 272,
+            "error_rate": 0.12867647058823528,
+            "fp_rate": 0.09926470588235294,
+            "fn_rate": 0.029411764705882353,
+            "prevalence": 0.8419117647058824,
+            "tn": 16,
+            "fp": 27,
+            "fn": 8,
+            "tp": 221
+          }
+        ],
+        "cp_asymptomatic": [
+          {
+            "level": "no",
+            "n": 337,
+            "error_rate": 0.19881305637982197,
+            "fp_rate": 0.0771513353115727,
+            "fn_rate": 0.12166172106824925,
+            "prevalence": 0.2789317507418398,
+            "tn": 217,
+            "fp": 26,
+            "fn": 41,
+            "tp": 53
+          },
+          {
+            "level": "yes",
+            "n": 399,
+            "error_rate": 0.15538847117794485,
+            "fp_rate": 0.10025062656641603,
+            "fn_rate": 0.05513784461152882,
+            "prevalence": 0.7844611528822055,
+            "tn": 46,
+            "fp": 40,
+            "fn": 22,
+            "tp": 291
+          }
+        ],
+        "male": [
+          {
+            "level": "no",
+            "n": 156,
+            "error_rate": 0.11538461538461539,
+            "fp_rate": 0.038461538461538464,
+            "fn_rate": 0.07692307692307693,
+            "prevalence": 0.23717948717948717,
+            "tn": 113,
+            "fp": 6,
+            "fn": 12,
+            "tp": 25
+          },
+          {
+            "level": "yes",
+            "n": 580,
+            "error_rate": 0.19137931034482758,
+            "fp_rate": 0.10344827586206896,
+            "fn_rate": 0.08793103448275862,
+            "prevalence": 0.6379310344827587,
+            "tn": 150,
+            "fp": 60,
+            "fn": 51,
+            "tp": 319
+          }
+        ]
+      },
+      "random_forest": {
+        "dataset": [
+          {
+            "level": "Cleveland",
+            "n": 243,
+            "error_rate": 0.18518518518518517,
+            "fp_rate": 0.09465020576131687,
+            "fn_rate": 0.09053497942386832,
+            "prevalence": 0.4567901234567901,
+            "tn": 109,
+            "fp": 23,
+            "fn": 22,
+            "tp": 89
+          },
+          {
+            "level": "Hungary",
+            "n": 235,
+            "error_rate": 0.14893617021276595,
+            "fp_rate": 0.06808510638297872,
+            "fn_rate": 0.08085106382978724,
+            "prevalence": 0.3617021276595745,
+            "tn": 134,
+            "fp": 16,
+            "fn": 19,
+            "tp": 66
+          },
+          {
+            "level": "Switzerland",
+            "n": 98,
+            "error_rate": 0.09183673469387756,
+            "fp_rate": 0.04081632653061224,
+            "fn_rate": 0.05102040816326531,
+            "prevalence": 0.9387755102040817,
+            "tn": 2,
+            "fp": 4,
+            "fn": 5,
+            "tp": 87
+          },
+          {
+            "level": "VA Long Beach",
+            "n": 160,
+            "error_rate": 0.24375,
+            "fp_rate": 0.18125,
+            "fn_rate": 0.0625,
+            "prevalence": 0.74375,
+            "tn": 12,
+            "fp": 29,
+            "fn": 10,
+            "tp": 109
+          }
+        ],
+        "sex": [
+          {
+            "level": "Female",
+            "n": 156,
+            "error_rate": 0.1282051282051282,
+            "fp_rate": 0.038461538461538464,
+            "fn_rate": 0.08974358974358974,
+            "prevalence": 0.23717948717948717,
+            "tn": 113,
+            "fp": 6,
+            "fn": 14,
+            "tp": 23
+          },
+          {
+            "level": "Male",
+            "n": 580,
+            "error_rate": 0.18620689655172415,
+            "fp_rate": 0.11379310344827587,
+            "fn_rate": 0.07241379310344828,
+            "prevalence": 0.6379310344827587,
+            "tn": 144,
+            "fp": 66,
+            "fn": 42,
+            "tp": 328
+          }
+        ],
+        "missing_ca": [
+          {
+            "level": "ca missing",
+            "n": 490,
+            "error_rate": 0.1673469387755102,
+            "fp_rate": 0.09795918367346938,
+            "fn_rate": 0.06938775510204082,
+            "prevalence": 0.5959183673469388,
+            "tn": 150,
+            "fp": 48,
+            "fn": 34,
+            "tp": 258
+          },
+          {
+            "level": "ca recorded",
+            "n": 246,
+            "error_rate": 0.18699186991869918,
+            "fp_rate": 0.0975609756097561,
+            "fn_rate": 0.08943089430894309,
+            "prevalence": 0.46747967479674796,
+            "tn": 107,
+            "fp": 24,
+            "fn": 22,
+            "tp": 93
+          }
+        ],
+        "missing_thal": [
+          {
+            "level": "thal missing",
+            "n": 392,
+            "error_rate": 0.17091836734693877,
+            "fp_rate": 0.10459183673469388,
+            "fn_rate": 0.0663265306122449,
+            "prevalence": 0.548469387755102,
+            "tn": 136,
+            "fp": 41,
+            "fn": 26,
+            "tp": 189
+          },
+          {
+            "level": "thal recorded",
+            "n": 344,
+            "error_rate": 0.17732558139534885,
+            "fp_rate": 0.09011627906976744,
+            "fn_rate": 0.0872093023255814,
+            "prevalence": 0.5581395348837209,
+            "tn": 121,
+            "fp": 31,
+            "fn": 30,
+            "tp": 162
+          }
+        ],
+        "missing_any": [
+          {
+            "level": "any missing",
+            "n": 495,
+            "error_rate": 0.16767676767676767,
+            "fp_rate": 0.09898989898989899,
+            "fn_rate": 0.06868686868686869,
+            "prevalence": 0.597979797979798,
+            "tn": 150,
+            "fp": 49,
+            "fn": 34,
+            "tp": 262
+          },
+          {
+            "level": "complete",
+            "n": 241,
+            "error_rate": 0.18672199170124482,
+            "fp_rate": 0.0954356846473029,
+            "fn_rate": 0.0912863070539419,
+            "prevalence": 0.4605809128630705,
+            "tn": 107,
+            "fp": 23,
+            "fn": 22,
+            "tp": 89
+          }
+        ],
+        "oldpeak_gt_1": [
+          {
+            "level": "no",
+            "n": 500,
+            "error_rate": 0.198,
+            "fp_rate": 0.1,
+            "fn_rate": 0.098,
+            "prevalence": 0.448,
+            "tn": 226,
+            "fp": 50,
+            "fn": 49,
+            "tp": 175
+          },
+          {
+            "level": "yes",
+            "n": 236,
+            "error_rate": 0.1228813559322034,
+            "fp_rate": 0.09322033898305085,
+            "fn_rate": 0.029661016949152543,
+            "prevalence": 0.7754237288135594,
+            "tn": 31,
+            "fp": 22,
+            "fn": 7,
+            "tp": 176
+          }
+        ],
+        "exang_true": [
+          {
+            "level": "no",
+            "n": 464,
+            "error_rate": 0.2025862068965517,
+            "fp_rate": 0.09267241379310345,
+            "fn_rate": 0.10991379310344827,
+            "prevalence": 0.38362068965517243,
+            "tn": 243,
+            "fp": 43,
+            "fn": 51,
+            "tp": 127
+          },
+          {
+            "level": "yes",
+            "n": 272,
+            "error_rate": 0.125,
+            "fp_rate": 0.10661764705882353,
+            "fn_rate": 0.01838235294117647,
+            "prevalence": 0.8419117647058824,
+            "tn": 14,
+            "fp": 29,
+            "fn": 5,
+            "tp": 224
+          }
+        ],
+        "cp_asymptomatic": [
+          {
+            "level": "no",
+            "n": 337,
+            "error_rate": 0.18991097922848665,
+            "fp_rate": 0.0830860534124629,
+            "fn_rate": 0.10682492581602374,
+            "prevalence": 0.2789317507418398,
+            "tn": 215,
+            "fp": 28,
+            "fn": 36,
+            "tp": 58
+          },
+          {
+            "level": "yes",
+            "n": 399,
+            "error_rate": 0.16040100250626566,
+            "fp_rate": 0.11027568922305764,
+            "fn_rate": 0.05012531328320802,
+            "prevalence": 0.7844611528822055,
+            "tn": 42,
+            "fp": 44,
+            "fn": 20,
+            "tp": 293
+          }
+        ],
+        "male": [
+          {
+            "level": "no",
+            "n": 156,
+            "error_rate": 0.1282051282051282,
+            "fp_rate": 0.038461538461538464,
+            "fn_rate": 0.08974358974358974,
+            "prevalence": 0.23717948717948717,
+            "tn": 113,
+            "fp": 6,
+            "fn": 14,
+            "tp": 23
+          },
+          {
+            "level": "yes",
+            "n": 580,
+            "error_rate": 0.18620689655172415,
+            "fp_rate": 0.11379310344827587,
+            "fn_rate": 0.07241379310344828,
+            "prevalence": 0.6379310344827587,
+            "tn": 144,
+            "fp": 66,
+            "fn": 42,
+            "tp": 328
+          }
+        ]
+      },
+      "xgboost": {
+        "dataset": [
+          {
+            "level": "Cleveland",
+            "n": 243,
+            "error_rate": 0.16872427983539096,
+            "fp_rate": 0.07407407407407407,
+            "fn_rate": 0.09465020576131687,
+            "prevalence": 0.4567901234567901,
+            "tn": 114,
+            "fp": 18,
+            "fn": 23,
+            "tp": 88
+          },
+          {
+            "level": "Hungary",
+            "n": 235,
+            "error_rate": 0.16170212765957448,
+            "fp_rate": 0.06808510638297872,
+            "fn_rate": 0.09361702127659574,
+            "prevalence": 0.3617021276595745,
+            "tn": 134,
+            "fp": 16,
+            "fn": 22,
+            "tp": 63
+          },
+          {
+            "level": "Switzerland",
+            "n": 98,
+            "error_rate": 0.08163265306122448,
+            "fp_rate": 0.04081632653061224,
+            "fn_rate": 0.04081632653061224,
+            "prevalence": 0.9387755102040817,
+            "tn": 2,
+            "fp": 4,
+            "fn": 4,
+            "tp": 88
+          },
+          {
+            "level": "VA Long Beach",
+            "n": 160,
+            "error_rate": 0.24375,
+            "fp_rate": 0.15625,
+            "fn_rate": 0.0875,
+            "prevalence": 0.74375,
+            "tn": 16,
+            "fp": 25,
+            "fn": 14,
+            "tp": 105
+          }
+        ],
+        "sex": [
+          {
+            "level": "Female",
+            "n": 156,
+            "error_rate": 0.1282051282051282,
+            "fp_rate": 0.038461538461538464,
+            "fn_rate": 0.08974358974358974,
+            "prevalence": 0.23717948717948717,
+            "tn": 113,
+            "fp": 6,
+            "fn": 14,
+            "tp": 23
+          },
+          {
+            "level": "Male",
+            "n": 580,
+            "error_rate": 0.18275862068965518,
+            "fp_rate": 0.09827586206896552,
+            "fn_rate": 0.08448275862068966,
+            "prevalence": 0.6379310344827587,
+            "tn": 153,
+            "fp": 57,
+            "fn": 49,
+            "tp": 321
+          }
+        ],
+        "missing_ca": [
+          {
+            "level": "ca missing",
+            "n": 490,
+            "error_rate": 0.17142857142857143,
+            "fp_rate": 0.08979591836734693,
+            "fn_rate": 0.08163265306122448,
+            "prevalence": 0.5959183673469388,
+            "tn": 154,
+            "fp": 44,
+            "fn": 40,
+            "tp": 252
+          },
+          {
+            "level": "ca recorded",
+            "n": 246,
+            "error_rate": 0.17073170731707318,
+            "fp_rate": 0.07723577235772358,
+            "fn_rate": 0.09349593495934959,
+            "prevalence": 0.46747967479674796,
+            "tn": 112,
+            "fp": 19,
+            "fn": 23,
+            "tp": 92
+          }
+        ],
+        "missing_thal": [
+          {
+            "level": "thal missing",
+            "n": 392,
+            "error_rate": 0.17857142857142858,
+            "fp_rate": 0.09693877551020408,
+            "fn_rate": 0.08163265306122448,
+            "prevalence": 0.548469387755102,
+            "tn": 139,
+            "fp": 38,
+            "fn": 32,
+            "tp": 183
+          },
+          {
+            "level": "thal recorded",
+            "n": 344,
+            "error_rate": 0.16279069767441862,
+            "fp_rate": 0.07267441860465117,
+            "fn_rate": 0.09011627906976744,
+            "prevalence": 0.5581395348837209,
+            "tn": 127,
+            "fp": 25,
+            "fn": 31,
+            "tp": 161
+          }
+        ],
+        "missing_any": [
+          {
+            "level": "any missing",
+            "n": 495,
+            "error_rate": 0.1717171717171717,
+            "fp_rate": 0.09090909090909091,
+            "fn_rate": 0.08080808080808081,
+            "prevalence": 0.597979797979798,
+            "tn": 154,
+            "fp": 45,
+            "fn": 40,
+            "tp": 256
+          },
+          {
+            "level": "complete",
+            "n": 241,
+            "error_rate": 0.17012448132780084,
+            "fp_rate": 0.07468879668049792,
+            "fn_rate": 0.0954356846473029,
+            "prevalence": 0.4605809128630705,
+            "tn": 112,
+            "fp": 18,
+            "fn": 23,
+            "tp": 88
+          }
+        ],
+        "oldpeak_gt_1": [
+          {
+            "level": "no",
+            "n": 500,
+            "error_rate": 0.2,
+            "fp_rate": 0.09,
+            "fn_rate": 0.11,
+            "prevalence": 0.448,
+            "tn": 231,
+            "fp": 45,
+            "fn": 55,
+            "tp": 169
+          },
+          {
+            "level": "yes",
+            "n": 236,
+            "error_rate": 0.11016949152542373,
+            "fp_rate": 0.07627118644067797,
+            "fn_rate": 0.03389830508474576,
+            "prevalence": 0.7754237288135594,
+            "tn": 35,
+            "fp": 18,
+            "fn": 8,
+            "tp": 175
+          }
+        ],
+        "exang_true": [
+          {
+            "level": "no",
+            "n": 464,
+            "error_rate": 0.2025862068965517,
+            "fp_rate": 0.07974137931034483,
+            "fn_rate": 0.12284482758620689,
+            "prevalence": 0.38362068965517243,
+            "tn": 249,
+            "fp": 37,
+            "fn": 57,
+            "tp": 121
+          },
+          {
+            "level": "yes",
+            "n": 272,
+            "error_rate": 0.11764705882352941,
+            "fp_rate": 0.09558823529411764,
+            "fn_rate": 0.022058823529411766,
+            "prevalence": 0.8419117647058824,
+            "tn": 17,
+            "fp": 26,
+            "fn": 6,
+            "tp": 223
+          }
+        ],
+        "cp_asymptomatic": [
+          {
+            "level": "no",
+            "n": 337,
+            "error_rate": 0.17804154302670624,
+            "fp_rate": 0.06231454005934718,
+            "fn_rate": 0.11572700296735905,
+            "prevalence": 0.2789317507418398,
+            "tn": 222,
+            "fp": 21,
+            "fn": 39,
+            "tp": 55
+          },
+          {
+            "level": "yes",
+            "n": 399,
+            "error_rate": 0.16541353383458646,
+            "fp_rate": 0.10526315789473684,
+            "fn_rate": 0.06015037593984962,
+            "prevalence": 0.7844611528822055,
+            "tn": 44,
+            "fp": 42,
+            "fn": 24,
+            "tp": 289
+          }
+        ],
+        "male": [
+          {
+            "level": "no",
+            "n": 156,
+            "error_rate": 0.1282051282051282,
+            "fp_rate": 0.038461538461538464,
+            "fn_rate": 0.08974358974358974,
+            "prevalence": 0.23717948717948717,
+            "tn": 113,
+            "fp": 6,
+            "fn": 14,
+            "tp": 23
+          },
+          {
+            "level": "yes",
+            "n": 580,
+            "error_rate": 0.18275862068965518,
+            "fp_rate": 0.09827586206896552,
+            "fn_rate": 0.08448275862068966,
+            "prevalence": 0.6379310344827587,
+            "tn": 153,
+            "fp": 57,
+            "fn": 49,
+            "tp": 321
+          }
+        ]
+      }
+    }
+  },
+  "explainability_files": [
+    "explainability_summary.json",
+    "global_feature_importance.png",
+    "logistic_regression_coefficients.csv",
+    "logistic_regression_shap_global.csv",
+    "random_forest_feature_importance.csv",
+    "random_forest_shap_global.csv",
+    "shap_global_bar_logistic_regression.png",
+    "shap_global_bar_random_forest.png",
+    "shap_global_bar_xgboost.png",
+    "shap_individual_logistic_regression_FN.csv",
+    "shap_individual_logistic_regression_FN.png",
+    "shap_individual_logistic_regression_FP.csv",
+    "shap_individual_logistic_regression_FP.png",
+    "shap_individual_logistic_regression_TN.csv",
+    "shap_individual_logistic_regression_TN.png",
+    "shap_individual_logistic_regression_TP.csv",
+    "shap_individual_logistic_regression_TP.png",
+    "shap_individual_logistic_regression_high_missingness_case.csv",
+    "shap_individual_logistic_regression_high_missingness_case.png",
+    "shap_individual_random_forest_FN.csv",
+    "shap_individual_random_forest_FN.png",
+    "shap_individual_random_forest_FP.csv",
+    "shap_individual_random_forest_FP.png",
+    "shap_individual_random_forest_TN.csv",
+    "shap_individual_random_forest_TN.png",
+    "shap_individual_random_forest_TP.csv",
+    "shap_individual_random_forest_TP.png",
+    "shap_individual_random_forest_high_missingness_case.csv",
+    "shap_individual_random_forest_high_missingness_case.png",
+    "shap_individual_xgboost_FN.csv",
+    "shap_individual_xgboost_FN.png",
+    "shap_individual_xgboost_FP.csv",
+    "shap_individual_xgboost_FP.png",
+    "shap_individual_xgboost_TN.csv",
+    "shap_individual_xgboost_TN.png",
+    "shap_individual_xgboost_TP.csv",
+    "shap_individual_xgboost_TP.png",
+    "shap_individual_xgboost_high_missingness_case.csv",
+    "shap_individual_xgboost_high_missingness_case.png",
+    "shap_summary_logistic_regression.png",
+    "shap_summary_random_forest.png",
+    "shap_summary_xgboost.png",
+    "xgboost_feature_importance.csv",
+    "xgboost_shap_global.csv"
+  ],
+  "environment": {
+    "python": "3.13.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "scikit_learn": "1.7.1",
+    "numpy": "2.3.1",
+    "pandas": "2.3.2",
+    "shap": "0.52.0"
+  },
+  "holdout_final": {
+    "logistic_regression": {
+      "overall": {
+        "n": 184,
+        "n_positive": 102,
+        "prevalence": 0.5543478260869565,
+        "threshold": 0.5,
+        "roc_auc": 0.8998087039693926,
+        "pr_auc": 0.9020576096715253,
+        "recall": 0.9019607843137255,
+        "precision": 0.8363636363636363,
+        "f1": 0.8679245283018868,
+        "accuracy": 0.8478260869565217,
+        "tn": 64,
+        "fp": 18,
+        "fn": 10,
+        "tp": 92
+      },
+      "confusion_matrix": {
+        "pred_negative": {
+          "0": 64,
+          "1": 10
+        },
+        "pred_positive": {
+          "0": 18,
+          "1": 92
+        }
+      },
+      "by_cohort": [
+        {
+          "n": 61,
+          "n_positive": 28,
+          "prevalence": 0.45901639344262296,
+          "threshold": 0.5,
+          "roc_auc": 0.9577922077922078,
+          "pr_auc": 0.9427478808048798,
+          "recall": 0.9285714285714286,
+          "precision": 0.8125,
+          "f1": 0.8666666666666667,
+          "accuracy": 0.8688524590163934,
+          "tn": 27,
+          "fp": 6,
+          "fn": 2,
+          "tp": 26,
+          "cohort": "Cleveland",
+          "reliable": true
+        },
+        {
+          "n": 58,
+          "n_positive": 21,
+          "prevalence": 0.3620689655172414,
+          "threshold": 0.5,
+          "roc_auc": 0.8532818532818532,
+          "pr_auc": 0.8262756663891855,
+          "recall": 0.7619047619047619,
+          "precision": 0.8,
+          "f1": 0.7804878048780488,
+          "accuracy": 0.8448275862068966,
+          "tn": 33,
+          "fp": 4,
+          "fn": 5,
+          "tp": 16,
+          "cohort": "Hungary",
+          "reliable": true
+        },
+        {
+          "n": 25,
+          "n_positive": 23,
+          "prevalence": 0.92,
+          "threshold": 0.5,
+          "roc_auc": 0.5434782608695652,
+          "pr_auc": 0.9247409487933257,
+          "recall": 0.9565217391304348,
+          "precision": 0.9565217391304348,
+          "f1": 0.9565217391304348,
+          "accuracy": 0.92,
+          "tn": 1,
+          "fp": 1,
+          "fn": 1,
+          "tp": 22,
+          "cohort": "Switzerland",
+          "reliable": false
+        },
+        {
+          "n": 40,
+          "n_positive": 30,
+          "prevalence": 0.75,
+          "threshold": 0.5,
+          "roc_auc": 0.6933333333333334,
+          "pr_auc": 0.8504082626935275,
+          "recall": 0.9333333333333333,
+          "precision": 0.8,
+          "f1": 0.8615384615384616,
+          "accuracy": 0.775,
+          "tn": 3,
+          "fp": 7,
+          "fn": 2,
+          "tp": 28,
+          "cohort": "VA Long Beach",
+          "reliable": false
+        }
+      ]
+    },
+    "random_forest": {
+      "overall": {
+        "n": 184,
+        "n_positive": 102,
+        "prevalence": 0.5543478260869565,
+        "threshold": 0.5,
+        "roc_auc": 0.8974175035868006,
+        "pr_auc": 0.8936543003727361,
+        "recall": 0.9117647058823529,
+        "precision": 0.8532110091743119,
+        "f1": 0.8815165876777251,
+        "accuracy": 0.8641304347826086,
+        "tn": 66,
+        "fp": 16,
+        "fn": 9,
+        "tp": 93
+      },
+      "confusion_matrix": {
+        "pred_negative": {
+          "0": 66,
+          "1": 9
+        },
+        "pred_positive": {
+          "0": 16,
+          "1": 93
+        }
+      },
+      "by_cohort": [
+        {
+          "n": 61,
+          "n_positive": 28,
+          "prevalence": 0.45901639344262296,
+          "threshold": 0.5,
+          "roc_auc": 0.9512987012987013,
+          "pr_auc": 0.9356025961296527,
+          "recall": 0.9642857142857143,
+          "precision": 0.8709677419354839,
+          "f1": 0.9152542372881356,
+          "accuracy": 0.9180327868852459,
+          "tn": 29,
+          "fp": 4,
+          "fn": 1,
+          "tp": 27,
+          "cohort": "Cleveland",
+          "reliable": true
+        },
+        {
+          "n": 58,
+          "n_positive": 21,
+          "prevalence": 0.3620689655172414,
+          "threshold": 0.5,
+          "roc_auc": 0.8674388674388674,
+          "pr_auc": 0.8026500534351249,
+          "recall": 0.7619047619047619,
+          "precision": 0.7619047619047619,
+          "f1": 0.7619047619047619,
+          "accuracy": 0.8275862068965517,
+          "tn": 32,
+          "fp": 5,
+          "fn": 5,
+          "tp": 16,
+          "cohort": "Hungary",
+          "reliable": true
+        },
+        {
+          "n": 25,
+          "n_positive": 23,
+          "prevalence": 0.92,
+          "threshold": 0.5,
+          "roc_auc": 0.782608695652174,
+          "pr_auc": 0.9784320644409631,
+          "recall": 0.9565217391304348,
+          "precision": 0.9565217391304348,
+          "f1": 0.9565217391304348,
+          "accuracy": 0.92,
+          "tn": 1,
+          "fp": 1,
+          "fn": 1,
+          "tp": 22,
+          "cohort": "Switzerland",
+          "reliable": false
+        },
+        {
+          "n": 40,
+          "n_positive": 30,
+          "prevalence": 0.75,
+          "threshold": 0.5,
+          "roc_auc": 0.7066666666666667,
+          "pr_auc": 0.8316377195238928,
+          "recall": 0.9333333333333333,
+          "precision": 0.8235294117647058,
+          "f1": 0.875,
+          "accuracy": 0.8,
+          "tn": 4,
+          "fp": 6,
+          "fn": 2,
+          "tp": 28,
+          "cohort": "VA Long Beach",
+          "reliable": false
+        }
+      ]
+    },
+    "xgboost": {
+      "overall": {
+        "n": 184,
+        "n_positive": 102,
+        "prevalence": 0.5543478260869565,
+        "threshold": 0.5,
+        "roc_auc": 0.8971783835485414,
+        "pr_auc": 0.904042161042357,
+        "recall": 0.8921568627450981,
+        "precision": 0.8348623853211009,
+        "f1": 0.8625592417061612,
+        "accuracy": 0.842391304347826,
+        "tn": 64,
+        "fp": 18,
+        "fn": 11,
+        "tp": 91
+      },
+      "confusion_matrix": {
+        "pred_negative": {
+          "0": 64,
+          "1": 11
+        },
+        "pred_positive": {
+          "0": 18,
+          "1": 91
+        }
+      },
+      "by_cohort": [
+        {
+          "n": 61,
+          "n_positive": 28,
+          "prevalence": 0.45901639344262296,
+          "threshold": 0.5,
+          "roc_auc": 0.9642857142857142,
+          "pr_auc": 0.9563510048315601,
+          "recall": 0.9642857142857143,
+          "precision": 0.8709677419354839,
+          "f1": 0.9152542372881356,
+          "accuracy": 0.9180327868852459,
+          "tn": 29,
+          "fp": 4,
+          "fn": 1,
+          "tp": 27,
+          "cohort": "Cleveland",
+          "reliable": true
+        },
+        {
+          "n": 58,
+          "n_positive": 21,
+          "prevalence": 0.3620689655172414,
+          "threshold": 0.5,
+          "roc_auc": 0.8622908622908623,
+          "pr_auc": 0.8308693210270615,
+          "recall": 0.7142857142857143,
+          "precision": 0.7142857142857143,
+          "f1": 0.7142857142857143,
+          "accuracy": 0.7931034482758621,
+          "tn": 31,
+          "fp": 6,
+          "fn": 6,
+          "tp": 15,
+          "cohort": "Hungary",
+          "reliable": true
+        },
+        {
+          "n": 25,
+          "n_positive": 23,
+          "prevalence": 0.92,
+          "threshold": 0.5,
+          "roc_auc": 0.6304347826086957,
+          "pr_auc": 0.9527241974287484,
+          "recall": 0.9565217391304348,
+          "precision": 0.9565217391304348,
+          "f1": 0.9565217391304348,
+          "accuracy": 0.92,
+          "tn": 1,
+          "fp": 1,
+          "fn": 1,
+          "tp": 22,
+          "cohort": "Switzerland",
+          "reliable": false
+        },
+        {
+          "n": 40,
+          "n_positive": 30,
+          "prevalence": 0.75,
+          "threshold": 0.5,
+          "roc_auc": 0.67,
+          "pr_auc": 0.8368381415592794,
+          "recall": 0.9,
+          "precision": 0.7941176470588235,
+          "f1": 0.84375,
+          "accuracy": 0.75,
+          "tn": 3,
+          "fp": 7,
+          "fn": 3,
+          "tp": 27,
+          "cohort": "VA Long Beach",
+          "reliable": false
+        }
+      ]
+    }
+  }
+}

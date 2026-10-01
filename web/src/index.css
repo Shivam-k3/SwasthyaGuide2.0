@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Deep navy carries structure; teal is the single interactive accent. */
+  --color-ink-950: #070d14;
+  --color-ink-900: #0e1a24;
+  --color-ink-800: #16242f;
+  --color-ink-700: #1f3140;
+  --color-ink-600: #2c4254;
+  --color-ink-500: #3d576b;
+  --color-ink-400: #5b7488;
+  --color-ink-300: #8298a9;
+  --color-ink-200: #b4c4d0;
+  --color-ink-100: #dbe4ea;
+  --color-ink-50: #eef3f6;
+
+  --color-brand-700: #0d5f63;
+  --color-brand-600: #10777c;
+  --color-brand-500: #16919a;
+  --color-brand-300: #5cc0c2;
+  --color-brand-200: #9ad9d6;
+  --color-brand-100: #d5efec;
+  --color-brand-50: #eef8f7;
+
+  /* Reserved for the elevated-risk treatment only. */
+  --color-alert-700: #8f2027;
+  --color-alert-600: #ac2b31;
+  --color-alert-100: #fbe6e5;
+  --color-alert-50: #fdf3f2;
+
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+
+  --text-display: 3.25rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ink-50);
+    color: var(--color-ink-800);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Focus is always visible, and never removed. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Comfortable touch targets without inflating every element. */
+  button,
+  [role='button'],
+  a {
+    touch-action: manipulation;
+  }
+
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}
+
+@layer components {
+  /* A quiet ruled surface used to separate content without stacking cards. */
+  .rule {
+    border-top: 1px solid var(--color-ink-200);
+  }
+
+  /* The hero's ECG trace. Decorative, so it is hidden from assistive tech. */
+  .ecg-trace {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: trace 5.5s ease-in-out infinite;
+  }
+}
+
+@keyframes trace {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  55%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* One deliberate entrance, then stillness. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-rise {
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-rise-delay {
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.09s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .ecg-trace,
+  .animate-rise,
+  .animate-rise-delay {
+    animation: none !important;
+  }
+
+  .ecg-trace {
+    stroke-dashoffset: 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

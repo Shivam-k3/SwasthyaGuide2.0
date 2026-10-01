@@ -1,0 +1,34 @@
+feature,mean_abs_shap,mean_shap,mean_shap_sd,abs_mean_shap,model,direction_consistent,direction_source,direction
+cp_asymptomatic,0.6253699465128391,0.011947801498615223,0.630508707905287,0.6253699465128391,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+exang,0.3674259544552668,0.042687086469453316,0.39714283530484623,0.3674259544552668,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+oldpeak,0.3375857648801605,0.03273486616165863,0.40932475873212637,0.3375857648801605,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+sex_Female,0.2987634413673178,-0.005716751653539098,0.3719385884992158,0.2987634413673178,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+slope_flat,0.26449407888171467,0.02114368400172047,0.2824363581907216,0.26449407888171467,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+thalch,0.22928397473720985,-0.0024222140007465064,0.31043320041481137,0.22928397473720985,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+cp_atypical angina,0.21977956642133548,-0.02071580622324963,0.30400156747022605,0.21977956642133548,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+ca,0.2121866843815002,0.03148413081552186,0.35210164796554233,0.2121866843815002,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+age,0.2038414913435902,0.006632474680689325,0.23723758296076286,0.2038414913435902,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+missingindicator_chol,0.18647876681517,0.004080469679573308,0.23063038096143998,0.18647876681517,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+chol,0.16464035821121323,0.0026143998419802697,0.20731891429221583,0.16464035821121323,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+thal_reversable defect,0.16122017397909708,0.012789211823078602,0.2135820862706194,0.16122017397909708,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+missingindicator_ca,0.1544334192395858,-0.01711399585980436,0.1757203482460688,0.1544334192395858,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+thal_normal,0.14942263361856178,0.000701775850282739,0.18874880674005404,0.14942263361856178,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+missingindicator_fbs,0.10100607507173782,0.009557040914407244,0.18446878794210647,0.10100607507173782,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+trestbps,0.09768938335622332,0.0029144139709545848,0.1406525955512413,0.09768938335622332,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+missingindicator_trestbps,0.06666487916473947,-0.010778643590722071,0.11626189544258164,0.06666487916473947,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+sex_Male,0.056033349064502705,0.00011384919913404661,0.06934695902406868,0.056033349064502705,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+restecg_normal,0.0326575592954886,-0.003357836614747572,0.046626530376974805,0.0326575592954886,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+slope_Missing,0.025874794554471482,0.0008361853846429807,0.029713505478295488,0.025874794554471482,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+fbs,0.019722237342806613,-0.001272458724839532,0.026746672871584977,0.019722237342806613,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+thal_Missing,0.016949161168430812,-0.0039201805914711695,0.02419697679173695,0.016949161168430812,xgboost,True,signed mean SHAP across patients,on average pushes score toward no disease
+restecg_st-t abnormality,0.013215163432861395,-0.001174292146258623,0.017514645530941723,0.013215163432861395,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+restecg_lv hypertrophy,0.007122203834866093,-0.002217873219152629,0.011342863978622558,0.007122203834866093,xgboost,True,signed mean SHAP across patients,on average pushes score toward no disease
+cp_non-anginal,0.0025436097193565015,0.0002541550376285475,0.0029375305041291397,0.0025436097193565015,xgboost,False,signed mean SHAP across patients,effect varies by patient (signed contributions cancel)
+missingindicator_thalch,0.002176683749775807,-0.000540128179557581,0.0036280305519150223,0.002176683749775807,xgboost,True,signed mean SHAP across patients,on average pushes score toward no disease
+missingindicator_oldpeak,0.0,0.0,0.0,0.0,xgboost,True,signed mean SHAP across patients,on average pushes score toward disease
+missingindicator_exang,0.0,0.0,0.0,0.0,xgboost,True,signed mean SHAP across patients,on average pushes score toward disease
+cp_typical angina,0.0,0.0,0.0,0.0,xgboost,True,signed mean SHAP across patients,on average pushes score toward disease
+restecg_Missing,0.0,0.0,0.0,0.0,xgboost,True,signed mean SHAP across patients,on average pushes score toward disease
+slope_downsloping,0.0,0.0,0.0,0.0,xgboost,True,signed mean SHAP across patients,on average pushes score toward disease
+slope_upsloping,0.0,0.0,0.0,0.0,xgboost,True,signed mean SHAP across patients,on average pushes score toward disease
+thal_fixed defect,0.0,0.0,0.0,0.0,xgboost,True,signed mean SHAP across patients,on average pushes score toward disease

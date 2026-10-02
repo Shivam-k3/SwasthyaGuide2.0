@@ -71,9 +71,11 @@ UCI Heart Disease dataset is small, well documented, and interpretable, which
 makes it a good end-to-end template for the rest of the platform.
 
 Current state: **Stage 5 complete — FastAPI serving layer plus the React web
-interface.** The ML pipeline from Stages 1–3 is frozen and unchanged by both.
-Security, privacy and medical-safety hardening is **not implemented** and is
-planned as Stage 5.5.
+interface — and Stage 5.5 security hardening (Stage 1B) complete.** The ML pipeline
+from Stages 1–3 is frozen and unchanged by any of them. Stage 5.5 implemented the
+application-side security controls at the API boundary; TLS, shared rate-limit
+state for multi-instance deployments and other edge controls remain operator
+responsibilities, listed in `PRODUCTION_SECURITY_CHECKLIST.md`.
 
 ---
 
@@ -914,7 +916,8 @@ SWASTHYAGUIDE 2.0/
 
 ## Current development stage
 
-**Stage 5 complete.**
+**Stage 5 complete. Stage 5.5 (security, privacy and medical safety) complete at
+the application layer — Stage 1B.**
 
 | Stage | Status |
 |-------|--------|
@@ -923,18 +926,33 @@ SWASTHYAGUIDE 2.0/
 | 3. Hyper-parameter tuning, repeated CV and explainability | **Complete — frozen** |
 | 4. FastAPI serving layer | **Complete** |
 | 5. React web interface | **Complete** |
-| 5.5. Security, privacy and medical-safety hardening | **Not implemented — planned** |
+| 5.5. Security, privacy and medical-safety hardening | **Stage 1B complete** — runtime controls implemented and tested |
 
 Stages 1–3 are frozen: the dataset, the train/test split, the three fitted
-pipelines, the threshold analysis and the audit results are unchanged by Stages
-4 and 5. The frontend is a presentation layer over the Stage 4 API and performs
+pipelines, the threshold analysis and the audit results are unchanged by Stages 4,
+5 and 5.5. The frontend is a presentation layer over the Stage 4 API and performs
 no scoring of its own.
 
-**Security, privacy and medical-safety hardening has not been started.** In
-particular there is no authentication, no rate limiting, no security-header
-configuration, no consent or retention mechanism, and no production transport
-configuration. The application is a local research prototype and is not
-configured for public deployment. That work is Stage 5.5 and has not begun.
+**What Stage 5.5 changed:** only `app/`, `tests/` and this documentation. All 81
+files under `data/`, `src/`, `models/` and `notebooks/` are byte-identical, the
+dataset SHA-256 is unchanged, and `python -m src.verify_stage3` still reports
+69/69. Prediction behaviour is unchanged, asserted to 5e-7 against the persisted
+pipeline.
+
+**What is now enforced in code** (91 tests in `tests/test_security.py`): security
+headers with production-only HSTS, explicit fail-closed CORS, endpoint rate
+limiting with 429 and `Retry-After`, a 1 MiB request-body limit with 413, request
+IDs returned in `X-Request-ID` and present in logs, centralised safe error
+handling that never returns a traceback, path or environment, production
+documentation control, trusted-proxy-aware client identification, host validation
+when configured, and a hardened `/health` and `/model-info`.
+
+**What is still not implemented:** there is no authentication, no consent or
+retention mechanism, and no TLS termination — all three are outside the
+application. Rate limiting is in-memory, so it is correct for a single-instance
+deployment and insufficient for a scaled-out one. The application is still a local
+research prototype and is not configured for public deployment; see
+`PRODUCTION_SECURITY_CHECKLIST.md`.
 
 ---
 
@@ -956,7 +974,7 @@ pip install -r requirements.txt
 python -m src.train            # Stage 2: split, fit, evaluate, write models/
 python -m src.validate_stage3  # Stage 3: CV, tuning, explainability, holdout last
 python -m src.verify_stage3    # 69 assertions
-python -m pytest -q            # Stage 4: 123 API and integrity tests
+python -m pytest -q            # Stage 4 + 5.5: 214 API, security and integrity tests
 uvicorn app.main:app --reload  # Stage 4: serve the API on :8000
 jupyter lab notebooks/         # all three notebooks
 
@@ -1037,20 +1055,83 @@ For reference, the Stage 3 scope, all complete:
 7. A 49-test Vitest suite and a development `/api` proxy so the browser makes
    same-origin requests without backend CORS changes.
 
+## What was implemented in Stage 5.5 (Stage 1B)
+
+1. `app/security.py`: security headers with production-only HSTS, explicit CORS
+   with no wildcard code path, endpoint-specific rate limiting returning 429 with
+   `Retry-After`, a request-body size limit returning 413, request-ID generation
+   and validation, centralised safe error handling, trusted-proxy-aware client
+   identification, and optional host validation.
+2. `app/main.py`: a `create_app` factory that installs the security stack from
+   environment-driven settings, controls `/docs`, `/redoc` and `/openapi.json`
+   per environment, and serves a minimal `/health`.
+3. `app/model_service.py` and `app/schemas.py`: `/model-info` now returns a bare
+   artifact filename and withholds the Stage 3 build-environment block unless an
+   operator opts in.
+4. `tests/test_security.py`: 91 tests, each naming the control it proves,
+   including a structural guard that the security layer never reaches into the
+   frozen ML pipeline, and a test that the security stack does not change a
+   prediction score.
+5. Updated documentation distinguishing implemented controls from
+   deployment-dependent controls from future scope. `SECURITY_AUDIT_PRE.md` is
+   retained unchanged as the historical pre-hardening baseline.
+
+No new runtime dependency was added; `requirements.txt` is unchanged. The browser
+still talks to the API through the existing same-origin `/api` proxy, so the
+frontend required no behavioural change.
+
 ## What comes next
 
-**Stage 5.5 — security, privacy and medical safety.** Not implemented. Planned
-scope only:
+**Deployment work that is not application code.** These are the items Stage 1B
+deliberately left to an operator, because the application cannot enforce them:
 
-* Transport and header hardening, CORS review, rate limiting, payload limits,
-  dependency audit, secrets management, `/docs` and `/model-info` exposure
-  review.
-* Data minimisation, health-data logging review, retention and deletion policy,
-  privacy notice, consent handling, third-party analytics review.
-* Stronger non-diagnostic result wording, emergency symptom guidance, explicit
-  model, population, generalisation and threshold-interpretation limitations.
+* TLS termination and HSTS preload, a WAF, and a reverse proxy that strips
+  client-supplied `X-Forwarded-For` before setting its own.
+* Setting `ALLOWED_HOSTS` and `CORS_ALLOWED_ORIGINS` explicitly in production.
+* Moving `security.RateLimiter` to a shared store **before** scaling out; in-memory
+  counters are per process.
+* `pip-audit` / `npm audit` in CI, and a real-browser pass (no browser automation
+  was available in the Stage 1B environment).
+
+Still not implemented anywhere: authentication, consent handling, retention and
+deletion policy, and a privacy notice.
 
 Independently of any of that, the honest limitations remain: 920 rows, four
 non-comparable cohorts, no external validation, no clinical validation, and
-three models that repeated CV cannot separate on discrimination. Serving the API
-and shipping a frontend change none of them.
+three models that repeated CV cannot separate on discrimination. Serving the API,
+shipping a frontend and hardening the API boundary changed none of them.
+
+
+## SECURITY & PRIVACY
+
+SWASTHYAGUIDE 2.0 follows security-by-design principles for a research health risk
+assessment prototype. Stage 5.5 made the application-side controls executable; the
+points below are enforced in code and covered by `tests/test_security.py`:
+
+- Stateless — no accounts, sessions, DB, or persistence of health data
+- Strict server-side input validation; unknown fields rejected
+- Privacy-preserving — no request body, health input or prediction result is
+  logged; no sensitive data in browser storage
+- Security headers on every response, including `Content-Security-Policy`,
+  `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` and
+  `Permissions-Policy`; HSTS in production only
+- Explicit environment-driven CORS; a wildcard is not configurable, and a
+  production deployment with no configured origins refuses all cross-origin calls
+- Rate limiting: 20/min on `/predict`, 60/min on other routes, 600/min on
+  `/health`, returning 429 with `Retry-After`
+- Request-body size limit of 1 MiB, returning 413, enforced for bodies with or
+  without a declared `Content-Length`
+- `X-Request-ID` on every response, validated when supplied by a client, and
+  present in operational logs
+- Centralised error handling: no traceback, filesystem path, dependency internals
+  or environment value in any error response
+- `/docs`, `/redoc` and `/openapi.json` disabled in production by default
+- Medical safety: research-only, not a medical device/diagnostic system
+
+Not enforced by the application, and therefore still the operator's job: TLS
+termination, shared rate-limit state for multi-instance deployments, `ALLOWED_HOSTS`,
+trusted-proxy configuration, WAF, secrets management and dependency scanning.
+
+See `SECURITY.md` for the control matrix, `SECURITY_HARDENING_REPORT.md` for the
+implementation evidence and remaining risks, and
+`PRODUCTION_SECURITY_CHECKLIST.md` for the deployment checklist.

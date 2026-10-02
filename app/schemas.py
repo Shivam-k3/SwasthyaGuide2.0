@@ -281,5 +281,9 @@ class ModelInfoResponse(BaseModel):
     available_models: list[str]
     selection_rationale: str
     calibration_note: str
-    environment: dict[str, str]
+    #: Stage 3 build environment. Omitted unless an operator opts in via
+    #: `SWASTHYAGUIDE_EXPOSE_BUILD_ENV`: it is an OS build string and a
+    #: dependency inventory, which is deployment fingerprinting rather than
+    #: research provenance.
+    environment: dict[str, str] | None = None
     disclaimer: str

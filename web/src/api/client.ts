@@ -10,12 +10,13 @@ const CONFIGURED_BASE = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/+$/
 
 /**
  * In development the app always speaks to its own origin and lets the Vite
- * proxy forward /api/* to FastAPI. The Stage 4 server sends no CORS headers, so
- * a cross-origin call would be blocked; the proxy keeps the request
- * same-origin and no CORS middleware is needed.
+ * proxy forward /api/* to FastAPI. The server now sends CORS headers for an
+ * explicit origin allow-list, but the proxy keeps the request same-origin, so
+ * these calls never depend on CORS being configured.
  *
  * In production VITE_API_BASE_URL may name the API origin. When it is unset the
- * app falls back to same-origin relative paths.
+ * app falls back to same-origin relative paths. A split-origin deployment must
+ * list the frontend origin in the server's CORS_ALLOWED_ORIGINS.
  */
 export const apiBaseUrl = import.meta.env.DEV ? '' : CONFIGURED_BASE
 

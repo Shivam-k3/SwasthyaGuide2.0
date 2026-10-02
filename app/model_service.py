@@ -53,6 +53,7 @@ import json
 import logging
 import os
 from dataclasses import dataclass
+from pathlib import Path
 
 import joblib
 
@@ -408,14 +409,28 @@ def build_prediction_response(
     )
 
 
-def build_model_info(loaded: LoadedModel) -> ModelInfoResponse:
-    """Metadata for the served model, read from the artifact and Stage 3 record."""
+def build_model_info(
+    loaded: LoadedModel, *, include_build_environment: bool = False
+) -> ModelInfoResponse:
+    """Metadata for the served model, read from the artifact and Stage 3 record.
+
+    `include_build_environment` withholds the Stage 3 `environment` block by
+    default. It carries an OS build string and exact dependency versions: useful
+    as a targeting aid for known CVEs, and it tells a caller nothing about the
+    risk assessment itself. The block still exists in the frozen report; this
+    only controls whether the application republishes it.
+
+    `artifact` is a bare filename, not a path. The full repository-relative
+    location is already stated in prose in `artifact_stage` and
+    `threshold_source`, so nothing is lost, while the response stops pointing at
+    where artifacts live on disk.
+    """
     estimator = loaded.pipeline.named_steps["model"]
     return ModelInfoResponse(
         model=loaded.name,
         model_type=type(estimator).__name__,
-        # Relative only. Absolute paths are an internal detail.
-        artifact=f"models/{SERVED_MODELS[loaded.name]}",
+        # Filename only. No directory, no absolute path, no filesystem root.
+        artifact=Path(SERVED_MODELS[loaded.name]).name,
         artifact_stage="Stage 3 selected configuration (models/tuned/)",
         provenance=PIPELINE_VERSION_NOTE,
         deployment_threshold=loaded.threshold,
@@ -445,6 +460,8 @@ def build_model_info(loaded: LoadedModel) -> ModelInfoResponse:
         available_models=sorted(SERVED_MODELS),
         selection_rationale=_selection_rationale(loaded.name),
         calibration_note=CALIBRATION_NOTES[loaded.name],
-        environment=_stage3_record().get("environment", {}),
+        environment=(
+            _stage3_record().get("environment", {}) if include_build_environment else None
+        ),
         disclaimer=DISCLAIMER,
     )

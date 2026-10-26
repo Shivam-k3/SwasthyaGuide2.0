@@ -26,6 +26,9 @@ dist-ssr/
 *.log
 stage3_run.log
 
+# Local working memory / session notes. Not part of the deliverable.
+MEMORY.md
+
 # Test and coverage output
 coverage/
 test-results/

@@ -1,6 +1,6 @@
 # SWASTHYAGUIDE 2.0
 
-Machine-learning health-risk assessment research prototype.
+Explainable machine-learning platform for heart disease risk assessment, featuring reproducible preprocessing, model validation, SHAP-based explainability, a FastAPI inference API, and a React web interface. Research prototype only—not a medical device or diagnostic system.
 
 > **Disclaimer — read this first.**
 > SWASTHYAGUIDE 2.0 is a **research prototype** for health **risk assessment**.

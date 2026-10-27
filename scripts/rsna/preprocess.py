@@ -48,7 +48,7 @@ import pydicom
 import PIL
 from PIL import Image
 
-BASE = r'D:\Datasets\RSNA_Pneumonia'
+BASE = os.environ.get('RSNA_BASE', r'D:\Datasets\RSNA_Pneumonia')
 RAW_SUBDIR, MAN_SUBDIR, PROC_SUBDIR = 'raw', 'manifests', 'proc'
 
 # --- frozen policy constants (also asserted by verify_proc.py) ---

@@ -1,10 +1,9 @@
 """Tests for the RSNA preprocessing pipeline.
 
-The pipeline lives outside the repository at
-``D:\\Datasets\\RSNA_Pneumonia\\scripts\\preprocess.py`` (dataset code never
-enters the repo, per docs/PNEUMONIA_DATASET_PLAN.md). These tests load it by
-path and run everything against small synthetic DICOMs in ``tmp_path``; the
-real 30,000-image dataset is never required. Set ``RSNA_BASE`` to relocate.
+The pipeline lives in ``scripts/rsna/`` in this repository (the RSNA dataset
+itself stays outside the repo and is located via ``RSNA_BASE``; the tests
+never need it). Everything runs against small synthetic DICOMs built in
+``tmp_path``.
 
 Nothing here touches the cardiovascular module.
 """
@@ -14,17 +13,15 @@ import csv
 import importlib.util
 import json
 import os
-import sys
 from pathlib import Path
 
 import numpy as np
 import pytest
 
-BASE = Path(os.environ.get('RSNA_BASE', r'D:\Datasets\RSNA_Pneumonia'))
-SCRIPTS = BASE / 'scripts'
+SCRIPTS = Path(__file__).resolve().parents[1] / 'scripts' / 'rsna'
 
 if not (SCRIPTS / 'preprocess.py').is_file():
-    pytest.skip(f'RSNA preprocessing scripts not found under {BASE}',
+    pytest.fail(f'repository RSNA scripts missing at {SCRIPTS}',
                 allow_module_level=True)
 
 

@@ -148,6 +148,9 @@ standard.
 All derived artifacts live **outside** the repo on D:, under `D:\Datasets\RSNA_Pneumonia\`.
 The `raw\` tree is untouched (read-only). Scripts:
 `D:\Datasets\RSNA_Pneumonia\scripts\{build_manifest.py, split_patients.py, verify_split.py}`.
+Repository copies of the preprocessing pipeline and its verifier are maintained at
+`scripts/rsna/` (`preprocess.py`, `verify_proc.py`); the D: tree remains the working
+original, and the dataset location is resolved via the `RSNA_BASE` environment variable.
 
 ### Manifest design
 - `manifests\rsna_manifest.csv` — 30,000 rows, one per image. Columns: `image_id`

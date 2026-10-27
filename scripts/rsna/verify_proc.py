@@ -1,6 +1,7 @@
 """Standalone verification of the processed-image cache (read-only).
 
-Run:  python verify_proc.py [base_dir]      (default D:\\Datasets\\RSNA_Pneumonia)
+Run:  python verify_proc.py [base_dir]
+      base_dir defaults to $RSNA_BASE, else D:\\Datasets\\RSNA_Pneumonia
 
 Checks (any FAIL -> exit 1; nothing is repaired or regenerated):
   1. every required image id (per config scope) appears exactly once
@@ -15,7 +16,7 @@ Checks (any FAIL -> exit 1; nothing is repaired or regenerated):
  10. all failures carry an explicit error category
  11. unlabelled images remain unlabelled (target/label match frozen)
  12. per-row config matches config.json and the code's policy constants
- 13. no partial outputs (*.tmp) under proc\
+ 13. no partial outputs (*.tmp) under proc/
 """
 from __future__ import annotations
 
@@ -31,7 +32,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import preprocess as pp  # noqa: E402  (shares the frozen policy constants)
 
-DEFAULT_BASE = r'D:\Datasets\RSNA_Pneumonia'
+DEFAULT_BASE = os.environ.get('RSNA_BASE', r'D:\Datasets\RSNA_Pneumonia')
 
 
 def file_sha256(path: str) -> str:

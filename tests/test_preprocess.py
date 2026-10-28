@@ -393,3 +393,22 @@ def test_run_is_byte_deterministic_across_forced_runs(tmp_path):
     after = {r['image_id']: pp.file_sha256(str(base / 'proc' / r['out_rel_path']))
              for r in read_proc_manifest(base)}
     assert before == after
+
+
+def test_narrow_scope_rerun_is_refused_without_explicit_flag(tmp_path):
+    base, ids = build_fake_base(tmp_path)
+    run_ids(base, ids)                                  # full cache: all rows
+    with pytest.raises(SystemExit, match='shrink'):
+        run_ids(base, ids[:2])                          # smaller scope, no flag
+    assert len(read_proc_manifest(base)) == len(ids)    # manifest untouched
+    assert vp.main([str(base)]) == 0                    # cache still verifies
+
+
+def test_narrow_scope_rerun_is_allowed_with_explicit_flag(tmp_path):
+    base, ids = build_fake_base(tmp_path)
+    run_ids(base, ids)
+    summary = run_ids(base, ids[:2], allow_scope_shrink=True)
+    assert summary['reused'] + summary['processed'] == 2
+    assert len(read_proc_manifest(base)) == 2
+    # orphaned cache files are exactly what the verifier must flag afterwards
+    assert vp.main([str(base)]) == 1

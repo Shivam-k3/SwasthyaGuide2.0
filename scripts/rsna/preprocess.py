@@ -271,8 +271,14 @@ def _policy_dict() -> dict:
 
 def run(base: str, scope_ids: list[str], scope_mode: str, *,
         force: bool = False, sample_n: int | None = None,
-        limit: int | None = None, prune_unlisted: bool = False) -> dict:
-    """Process exactly `scope_ids` into <base>/proc. Returns a summary dict."""
+        limit: int | None = None, prune_unlisted: bool = False,
+        allow_scope_shrink: bool = False) -> dict:
+    """Process exactly `scope_ids` into <base>/proc. Returns a summary dict.
+
+    Refuses to shrink an existing cache manifest (more rows on record than
+    the new scope) unless `allow_scope_shrink` is set: a narrow-scope rerun
+    would orphan cache files and make verify_proc.py fail.
+    """
     assert scope_mode in ('sample', 'explicit', 'full')
     proc = os.path.join(base, PROC_SUBDIR)
     img_root = os.path.join(proc, 'images')
@@ -290,9 +296,18 @@ def run(base: str, scope_ids: list[str], scope_mode: str, *,
     prev_path = os.path.join(proc, 'proc_manifest.csv')
     if os.path.exists(prev_path):
         with open(prev_path, encoding='utf-8') as f:
-            for r in csv.DictReader(f):
-                if r.get('status') == 'ok':
-                    prev[r['image_id']] = r
+            prev_rows = list(csv.DictReader(f))
+        for r in prev_rows:
+            if r.get('status') == 'ok':
+                prev[r['image_id']] = r
+        if len(prev_rows) > len(scope_ids) and not allow_scope_shrink:
+            raise SystemExit(
+                f'refusing to shrink the cache manifest from {len(prev_rows)} rows '
+                f'to {len(scope_ids)}: this rerun would orphan '
+                f'{len(prev_rows) - len(scope_ids)} existing cache files and make '
+                f'verify_proc.py fail (disk files must exactly match manifest rows). '
+                f'If intentional, pass --allow-scope-shrink (and consider '
+                f'--prune-unlisted).')
 
     out_rows: list[dict] = []
     processed = reused = failed = 0
@@ -413,6 +428,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument('--force', action='store_true', help='reprocess even if cache is reusable')
     p.add_argument('--prune-unlisted', action='store_true',
                    help='after the run, delete proc cache files not in the new manifest')
+    p.add_argument('--allow-scope-shrink', action='store_true',
+                   help='permit a rerun whose scope is smaller than the existing '
+                        'cache manifest (orphans files; verifier will fail until '
+                        'a full rerun or --prune-unlisted)')
     args = p.parse_args(argv)
 
     if args.sample is not None:
@@ -429,7 +448,8 @@ def main(argv: list[str] | None = None) -> int:
         mode, sample_n = 'full', None
 
     summary = run(BASE, ids, mode, force=args.force, sample_n=sample_n,
-                  limit=args.limit, prune_unlisted=args.prune_unlisted)
+                  limit=args.limit, prune_unlisted=args.prune_unlisted,
+                  allow_scope_shrink=args.allow_scope_shrink)
     return 1 if summary['failed'] else 0
 
 

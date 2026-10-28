@@ -11,6 +11,34 @@ frozen manifests are read-only inputs; all outputs go under `<RSNA_BASE>/proc/`.
 |---|---|
 | `preprocess.py` | Decode DICOM → deterministic 224×224 float32 [0,1] `.npy` cache with atomic writes, safe resumption, per-run `proc_manifest.csv` and `config.json` |
 | `verify_proc.py` | Standalone read-only verifier for the cache (24 checks); exits 1 on any failure, repairs nothing |
+| `cnn_data.py` | Dataset/manifest loading for training: excludes unlabelled images explicitly, asserts patient-level split separation, fails clearly on invalid targets or missing cache files |
+| `cnn_model.py` | DenseNet121 (torchvision) with a fixed grayscale adaptation: the single channel is replicated to 3 so ImageNet weights are used unchanged; 1-logit head |
+| `cnn_metrics.py` | AUROC, sensitivity, specificity, precision, recall, F1, confusion matrix; validation-only Youden-J threshold selection |
+| `cnn_train.py` | Training entry point: BCEWithLogitsLoss (optional `pos_weight`), configurable epochs/batch/lr/seed/device/workers, checkpoints + history + metrics saved under `<RSNA_BASE>/runs/` |
+
+## CNN baseline
+
+```bash
+python scripts/rsna/cnn_train.py --epochs 20 --batch-size 32 --lr 1e-4
+python scripts/rsna/cnn_train.py --device cuda --amp --class-weight pos_weight
+python scripts/rsna/cnn_train.py --no-pretrained --epochs 2 --limit-train 8 \
+    --limit-val 4 --limit-test 4 --out-dir <base>/runs/smoke   # smoke only
+```
+
+- **Data:** reads the verified cache only (`proc/proc_manifest.csv`); the 316
+  unlabelled images are excluded and never treated as negative; patient-level
+  split separation is asserted at load time.
+- **Leakage discipline:** the classification threshold is selected on the
+  validation set (Youden J) with the best checkpoint; the test set is
+  evaluated exactly once, afterwards.
+- **Device:** CPU or CUDA (`--device auto` detects); a 6 GB GPU fits
+  batch-size 32 at 224×224; `--amp` enables mixed precision on CUDA.
+- **Outputs:** `config.json`, `history.json`, `best.pt`, `last.pt`,
+  `threshold.json`, `val_metrics.json`, `test_metrics.json`.
+- **Dependencies:** `torch` + `torchvision` (+ `scikit-learn` for AUROC,
+  already a project dependency). Pretrained ImageNet weights download on
+  first real training run only; tests always use random init and never
+  download or train DenseNet.
 
 ## Requirements
 
